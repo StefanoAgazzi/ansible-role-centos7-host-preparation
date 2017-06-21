@@ -1,0 +1,15 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+docker:
+  containers:
+    - name: ansible-role-base-centos7
+      image: centos
+      image_version: 7
+      ansible_groups:
+        - group1
+      privileged: True
+verifier:
+  name: testinfra
