@@ -6,8 +6,8 @@ driver:
 docker:
   containers:
     - name: ansible-role-base-centos7
-      image: centos
-      image_version: 7
+      image: centos/systemd
+      image_version: latest
       ansible_groups:
         - group1
       privileged: True

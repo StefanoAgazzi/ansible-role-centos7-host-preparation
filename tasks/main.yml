@@ -47,12 +47,12 @@
     state:     started
     enabled:   True
 
-- name:        Ensure SSH can pass the firewall
-  firewalld:
-    service:   ssh
-    state:     enabled
-    permanent: True
-    immediate: True
+#- name:        Ensure SSH can pass the firewall
+#  firewalld:
+#    service:   ssh
+#    state:     enabled
+#    permanent: True
+#    immediate: True
 
 - name:        Ensure FirewallD is running
   service:
@@ -60,15 +60,15 @@
     state:     started
     enabled:   True
 
-- name:        Ensure the MOTD file is present and updated
-  template:
-    src:       templates/motd.jinja2
-    dest:      /etc/motd
-    owner:     root
-    group:     root
-    mode:      0644
-    become:    True
+#- name:        Ensure the MOTD file is present and updated
+#  template:
+#    src:       templates/motd.jinja2
+#    dest:      /etc/motd
+#    owner:     root
+#    group:     root
+#    mode:      0644
+#    become:    True
 
-- name:        Ensure the hostname is the same of the inventory
-  hostname:
-    name:      "{{ inventory_hostname }}"
+#- name:        Ensure the hostname is the same of the inventory
+#  hostname:
+#    name:      "{{ inventory_hostname }}"
