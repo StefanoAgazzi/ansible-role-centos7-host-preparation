@@ -1,3 +1,4 @@
+# Standards: 1.0
 galaxy_info:
   author: Stefano Agazzi
   description: Stefano Agazzi
@@ -17,7 +18,7 @@ galaxy_info:
   license:
   - GPLv3
 
-  min_ansible_version: 1.2
+  min_ansible_version: 2.0
 
   # If this a Container Enabled role, provide the minimum Ansible Container version.
   # min_ansible_container_version:
@@ -59,6 +60,7 @@ galaxy_info:
   - prepare
   - enteprise
   - openscap
+  - docker
 
     # List tags for your role here, one per line. A tag is a keyword that describes
     # and categorizes the role. Users find roles by searching for tags. Be sure to

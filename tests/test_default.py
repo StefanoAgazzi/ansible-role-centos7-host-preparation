@@ -12,7 +12,27 @@ def test_hosts_file(File):
     assert f.group == 'root'
 
 
-# def test_zabbix_package(Package):
-#     vi = Package('vi')
-#     assert vi.is_installed
-#     assert vi.version.startswith("1:3.0")
+def test_packages_installation(Package):
+    epel_release = Package('epel-release')
+    python = Package('python')
+    libselinux_python = Package('libselinux-python')
+    libsemanage_python = Package('libsemanage-python')
+    ntp = Package('ntp')
+    firewalld = Package('firewalld')
+
+    assert epel_release.is_installed
+    assert python.is_installed
+    assert libselinux_python.is_installed
+    assert libsemanage_python.is_installed
+    assert ntp.is_installed
+    assert firewalld.is_installed
+
+
+def test_services_running_and_enabled(Service):
+    firewalld = Service("firewalld")
+    ntpd = Service("ntpd")
+
+    assert firewalld.is_running
+    assert firewalld.is_enabled
+    assert ntpd.is_running
+    assert ntpd.is_enabled

@@ -1,2 +1,74 @@
----
 # tasks file for base-centos7
+---
+- name:        Ensure we have last version of every package
+  package:
+    name:      '*'
+    state:     latest
+
+- name:        Ensure EPEL is enabled
+  package:
+    name:      epel-release
+    state:     present
+
+- name:        Ensure Python is present
+  package:
+    name:      python
+    state:     present
+
+- name:        Ensure libselinux-python is present
+  package:
+    name:      libselinux-python
+    state:     present
+
+- name:        Ensure libsemanage-python is present
+  package:
+    name:      libsemanage-python
+    state:     present
+
+- name:        Ensure NTP is installed
+  package:
+    name:      ntp
+    state:     present
+
+- name:        Ensure FirewallD is installed
+  package:
+    name:      firewalld
+    state:     present
+
+- name:        Ensure the timezone is set to UTC
+  file:
+    src:       /usr/share/zoneinfo/GMT
+    dest:      /etc/localtime
+    state:     link
+
+- name:        Ensure the NTP service is running and enabled
+  service:
+    name:      ntpd
+    state:     started
+    enabled:   True
+
+- name:        Ensure SSH can pass the firewall
+  firewalld:
+    service:   ssh
+    state:     enabled
+    permanent: True
+    immediate: True
+
+- name:        Ensure FirewallD is running
+  service:
+    name:      firewalld
+    state:     started
+    enabled:   True
+
+- name:        Ensure the MOTD file is present and updated
+  template:
+    src:       templates/motd.jinja2
+    dest:      /etc/motd
+    owner:     root
+    group:     root
+    mode:      0644
+    become:    True
+
+- name:        Ensure the hostname is the same of the inventory
+  hostname:
+    name:      "{{ inventory_hostname }}"
