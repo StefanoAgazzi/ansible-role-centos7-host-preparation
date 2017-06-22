@@ -1,5 +1,15 @@
-Role Name
+base-centos7
 =========
+
+This role is intended to setup a CentOS or (Enteprise Linux) base system, installing essential packages and services.
+
+Especially it configures the following repositories:
+-   the EPEL repository
+([https://fedoraproject.org/wiki/EPEL](https://fedoraproject.org/wiki/EPEL))
+
+-   the openscap-latest copr repository
+([https://copr.fedorainfracloud.org/coprs/openscapmaint/openscap-latest](https://copr.fedorainfracloud.org/coprs/openscapmaint/openscap-latest))
+
 
 A brief description of the role goes here.
 
@@ -30,9 +40,10 @@ Including an example of how to use your role (for instance, with variables passe
 License
 -------
 
-BSD
+GPLv3
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Stefano Agazzi
+http://stefano.rocks
