@@ -1,6 +1,8 @@
 # tasks file for base-centos7
 ---
 - name:        Ensure we have last version of every package
+  tags:
+  - skip_ansible_lint
   package:
     name:      '*'
     state:     latest
