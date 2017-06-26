@@ -126,12 +126,6 @@
     state:               started
     enabled:             True
 
-- name:                  Ensure kernel-ml (kernel 4.x) is present
-  yum:
-    name:                kernel-ml
-    state:               present
-    enablerepo:          elrepo-kernel
-
 #- name:                 Ensure the MOTD file is present and updated
 #  template:
 #    src:                templates/motd.jinja2
@@ -159,3 +153,9 @@
 #- name:                 Ensure the hostname is the same of the inventory
 #  hostname:
 #    name:               "{{ inventory_hostname }}"
+
+- name:                  Ensure kernel-ml (kernel 4.x) is present
+  yum:
+    name:                kernel-ml
+    state:               present
+    enablerepo:          elrepo-kernel
