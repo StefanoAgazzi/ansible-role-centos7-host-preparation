@@ -4,17 +4,6 @@ galaxy_info:
   description: Stefano Agazzi
   company:  stefano.rocks
 
-  # If the issue tracker for your role is not on github, uncomment the
-  # next line and provide a value
-  # issue_tracker_url: http://example.com/issue/tracker
-
-  # Some suggested licenses:
-  # - BSD (default)
-  # - MIT
-  # - GPLv2
-  # - GPLv3
-  # - Apache
-  # - CC-BY
   license:
   - GPLv3
 
@@ -57,7 +46,11 @@ galaxy_info:
   - el
   - systemd
   - base
+  - essential
   - openscap
+  - docker
+  - dokcer-ce
+
 
     # List tags for your role here, one per line. A tag is a keyword that describes
     # and categorizes the role. Users find roles by searching for tags. Be sure to

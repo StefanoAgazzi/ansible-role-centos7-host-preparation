@@ -12,16 +12,26 @@
     name:                epel-release
     state:               present
 
-#- name:                  Ensure copr repo for dnf-centos is enabled
+#- name:                 Ensure copr repo for dnf-centos is enabled
 #  yum_repository:
-#    name:                copr-dnf-centos
-#    description:         Copr repo for dnf-centos owned by @rpm-software-management
-#    baseurl:             https://copr-be.cloud.fedoraproject.org/results/@rpm-software-management/dnf-centos/epel-7-$basearch/
-#    gpgkey:              https://copr-be.cloud.fedoraproject.org/results/@rpm-software-management/dnf-centos/pubkey.gpg
-#    gpgcheck:            yes
-#    repo_gpgcheck:       no
+#    name:               copr-dnf-centos
+#    description:        Copr repo for dnf-centos owned by @rpm-software-management
+#    baseurl:            https://copr-be.cloud.fedoraproject.org/results/@rpm-software-management/dnf-centos/epel-7-$basearch/
+#    gpgkey:             https://copr-be.cloud.fedoraproject.org/results/@rpm-software-management/dnf-centos/pubkey.gpg
+#    gpgcheck:           yes
+#    repo_gpgcheck:      no
 #    skip_if_unavailable: yes
-#    enabled:             yes
+#    enabled:            yes
+
+- name:                  Ensure ELRepo GPG key is present
+  rpm_key:
+    state:               present
+    key:                 https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+
+- name:                  Ensure ELRepo is enabled
+  package:
+    name:                http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
+    state:               present
 
 - name:                  Ensure copr repo for OpenSCAP is enabled
   yum_repository:
@@ -66,15 +76,15 @@
     name:                firewalld
     state:               present
 
-#- name:                  Ensure dnf is present
+#- name:                 Ensure dnf is present
 #  package:
-#    name:                dnf
-#    state:               present
+#    name:               dnf
+#    state:              present
 
-#- name:                  Ensure dnf-plugins-core present
+#- name:                 Ensure dnf-plugins-core present
 #  package:
-#    name:                dnf-plugins-core
-#    state:               present
+#    name:               dnf-plugins-core
+#    state:              present
 
 - name:                  Ensure OpenSCAP utils is present
   package:
@@ -115,6 +125,12 @@
     name:                firewalld
     state:               started
     enabled:             True
+
+- name:                  Ensure kernel-ml (kernel 4.x) is present
+  yum:
+    name:                kernel-ml
+    state:               present
+    enablerepo:          elrepo-kernel
 
 #- name:                 Ensure the MOTD file is present and updated
 #  template:
