@@ -1,113 +1,145 @@
 # tasks file for base-centos7
 ---
-- name:           Ensure we have last version of every package
+- name:                  Ensure we have last version of every package
   tags:
   - skip_ansible_lint
   package:
-    name:         '*'
-    state:        latest
+    name:                '*'
+    state:               latest
 
-- name:           Ensure EPEL is enabled
+- name:                  Ensure EPEL is enabled
   package:
-    name:         epel-release
-    state:        present
+    name:                epel-release
+    state:               present
 
-- name:           Ensure OpenSCAP copr repo is enabled
+#- name:                  Ensure copr repo for dnf-centos is enabled
+#  yum_repository:
+#    name:                copr-dnf-centos
+#    description:         Copr repo for dnf-centos owned by @rpm-software-management
+#    baseurl:             https://copr-be.cloud.fedoraproject.org/results/@rpm-software-management/dnf-centos/epel-7-$basearch/
+#    gpgkey:              https://copr-be.cloud.fedoraproject.org/results/@rpm-software-management/dnf-centos/pubkey.gpg
+#    gpgcheck:            yes
+#    repo_gpgcheck:       no
+#    skip_if_unavailable: yes
+#    enabled:             yes
+
+- name:                  Ensure copr repo for OpenSCAP is enabled
   yum_repository:
-    name:         OpenSCAP copr
-    description:  OpenSCAP copr lastest
-    baseurl:      http://copr.fedoraproject.org/coprs/openscapmaint/openscap-latest/repo/epel-7/openscapmaint-openscap-latest-epel-7.repo
-    gpgcheck:     yes
+    name:                copr-openscap
+    description:         OpenSCAP copr lastest
+    baseurl:             https://copr-be.cloud.fedoraproject.org/results/openscapmaint/openscap-latest/epel-7-$basearch/
+    gpgkey:              https://copr-be.cloud.fedoraproject.org/results/openscapmaint/openscap-latest/pubkey.gpg
+    gpgcheck:            yes
+    repo_gpgcheck:       no
+    skip_if_unavailable: yes
+    enabled:             yes
 
-- name:           Ensure Python is present
+- name:                  Ensure we have last version of every package
+  tags:
+  - skip_ansible_lint
   package:
-    name:         python
-    state:        present
+    name:                '*'
+    state:               latest
 
-- name:           Ensure libselinux-python is present
+- name:                  Ensure Python is present
   package:
-    name:         libselinux-python
-    state:        present
+    name:                python
+    state:               present
 
-- name:           Ensure libsemanage-python is present
+- name:                  Ensure libselinux-python is present
   package:
-    name:         libsemanage-python
-    state:        present
+    name:                libselinux-python
+    state:               present
 
-- name:           Ensure NTP is present
+- name:                  Ensure libsemanage-python is present
   package:
-    name:         ntp
-    state:        present
+    name:                libsemanage-python
+    state:               present
 
-- name:           Ensure FirewallD is present
+- name:                  Ensure NTP is present
   package:
-    name:         firewalld
-    state:        present
+    name:                ntp
+    state:               present
 
-- name:           Ensure OpenSCAP utils is present
+- name:                  Ensure FirewallD is present
   package:
-    name:         openscap-utils
-    state:        present
+    name:                firewalld
+    state:               present
 
-- name:           Ensure SCAP security guide is present
+#- name:                  Ensure dnf is present
+#  package:
+#    name:                dnf
+#    state:               present
+
+#- name:                  Ensure dnf-plugins-core present
+#  package:
+#    name:                dnf-plugins-core
+#    state:               present
+
+- name:                  Ensure OpenSCAP utils is present
   package:
-    name:         scap-security-guide
-    state:        present
+    name:                openscap-utils
+    state:               present
 
-- name:           Ensure OpenSCAP daemon guide is present
+- name:                  Ensure SCAP security guide is present
   package:
-    name:         openscap-daemon
-    state:        present
+    name:                scap-security-guide
+    state:               present
 
-- name:           Ensure the timezone is set to UTC
+- name:                  Ensure OpenSCAP daemon is present
+  package:
+    name:                openscap-daemon
+    state:               present
+
+- name:                  Ensure the timezone is set to UTC
   file:
-    src:          /usr/share/zoneinfo/GMT
-    dest:         /etc/localtime
-    state:        link
+    src:                 /usr/share/zoneinfo/GMT
+    dest:                /etc/localtime
+    state:               link
 
-- name:           Ensure the NTP service is running and enabled
+- name:                  Ensure the NTP service is running and enabled
   service:
-    name:         ntpd
-    state:        started
-    enabled:      True
+    name:                ntpd
+    state:               started
+    enabled:             True
 
-#- name:          Ensure SSH can pass the firewall
+#- name:                 Ensure SSH can pass the firewall
 #  firewalld:
-#    service:     ssh
-#    state:       enabled
-#    permanent:   True
-#    immediate:   True
+#    service:            ssh
+#    state:              enabled
+#    permanent:          True
+#    immediate:          True
 
-- name:           Ensure FirewallD is running and enabled
+- name:                  Ensure FirewallD is running and enabled
   service:
-    name:         firewalld
-    state:        started
-    enabled:      True
+    name:                firewalld
+    state:               started
+    enabled:             True
 
-#- name:          Ensure the MOTD file is present and updated
+#- name:                 Ensure the MOTD file is present and updated
 #  template:
-#    src:         templates/motd.jinja2
-#    dest:        /etc/motd
-#    owner:       root
-#    group:       root
-#    mode:        0644
-#    become:      True
+#    src:                templates/motd.jinja2
+#    dest:               /etc/motd
+#    owner:              root
+#    group:              root
+#    mode:               0644
+#    become:             True
 
-#- name:           Set authorized key for ordinary user copying it from current user
+#- name:                 Set authorized key for ordinary user copying it from current user
 #  authorized_key:
-#  #TODO:          replace hard coded username ste with a variable
-#    user:         ste
-#    state:        present
-#    key:          "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+#  #TODO:                replace hard coded username ste with a variable
+#    user:               ste
+#    state:              present
+#    key:                "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
 
-#- name:           Ensure the ordinary user is sudoer with no password required
+#- name:                 Ensure the ordinary user is sudoer with no password required
 #  lineinfile:
-#    dest:         /etc/sudoers
-#    state:        present
-#    regexp:       '^ste ALL\='
-#    line:         'ste ALL=(ALL) NOPASSWD:ALL'
-#    validate:     'visudo -cf %s'
+#    dest:               /etc/sudoers
+#    state:              present
+#    regexp:             '^ste ALL\='
+#    line:               'ste ALL=(ALL) NOPASSWD:ALL'
+#    validate:           'visudo -cf %s'
 
-#- name:          Ensure the hostname is the same of the inventory
+#- name:                 Ensure the hostname is the same of the inventory
 #  hostname:
-#    name:        "{{ inventory_hostname }}"
+#    name:               "{{ inventory_hostname }}"

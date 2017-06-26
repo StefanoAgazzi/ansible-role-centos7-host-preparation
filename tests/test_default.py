@@ -19,6 +19,11 @@ def test_packages_installation(Package):
     libsemanage_python = Package('libsemanage-python')
     ntp = Package('ntp')
     firewalld = Package('firewalld')
+    # dnf = Package('dnf')
+    # dnf_plugins_core = Package('dnf-plugins-core')
+    openscap = Package('openscap')
+    openscap_daemon = Package('openscap-daemon')
+    scap_security_guide = Package('scap-security-guide')
 
     assert epel_release.is_installed
     assert python.is_installed
@@ -26,6 +31,11 @@ def test_packages_installation(Package):
     assert libsemanage_python.is_installed
     assert ntp.is_installed
     assert firewalld.is_installed
+    # assert dnf.version.startswith("2.0.0")
+    # assert dnf_plugins_core.version.startswith("1.0.0")
+    assert openscap.version.startswith("1.2.14")
+    assert openscap_daemon.version.startswith("0.1.6")
+    assert scap_security_guide.version.startswith("0.1.33")
 
 
 def test_services_running_and_enabled(Service):
