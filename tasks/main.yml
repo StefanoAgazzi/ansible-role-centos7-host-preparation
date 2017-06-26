@@ -66,6 +66,31 @@
     name:                firewalld
     state:               present
 
+- name:                  Ensure tmux is present
+  package:
+    name:                tmux
+    state:               present
+
+- name:                  Ensure mlocate is present
+  package:
+    name:                mlocate
+    state:               present
+
+- name:                  Ensure vim-common is present
+  package:
+    name:                vim-common
+    state:               present
+
+- name:                  Ensure yum-utils is present
+  package:
+    name:                yum-utils
+    state:               present
+
+- name:                  Ensure htop is present
+  package:
+    name:                htop
+    state:               present
+
 #- name:                  Ensure dnf is present
 #  package:
 #    name:                dnf
