@@ -101,6 +101,16 @@
     name:                htop
     state:               present
 
+- name:                  Ensure device-mapper-persistent-data is present
+  package:
+    name:                device-mapper-persistent-data
+    state:               present
+
+- name:                  Ensure lvm2 is present
+  package:
+    name:                lvm2
+    state:               present
+
 #- name:                  Ensure dnf is present
 #  package:
 #    name:               dnf
