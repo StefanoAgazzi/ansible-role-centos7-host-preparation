@@ -7,7 +7,7 @@
     name:                '*'
     state:               latest
 
-- name:                  Ensure EPEL is enabled
+- name:                  Ensure EPEL is present
   package:
     name:                epel-release
     state:               present
@@ -43,6 +43,9 @@
     repo_gpgcheck:       no
     skip_if_unavailable: yes
     enabled:             yes
+
+- name:                  Ensure CentOS extras repo is enabled
+  raw:                   "yum-config-manager --enable extras"
 
 - name:                  Ensure we have last version of every package
   tags:
@@ -111,7 +114,7 @@
     name:                lvm2
     state:               present
 
-#- name:                  Ensure dnf is present
+#- name:                 Ensure dnf is present
 #  package:
 #    name:               dnf
 #    state:              present
