@@ -1,6 +1,6 @@
 # tasks file for base-centos7
 ---
-- name:                  Ensure we have last version of every package
+- name:                  Ensure we have the last version of every package
   tags:
   - skip_ansible_lint
   package:
@@ -33,7 +33,7 @@
     skip_if_unavailable: yes
     enabled:             yes
 
-- name:                  Ensure we have last version of every package
+- name:                  Ensure we have the last version of every package
   tags:
   - skip_ansible_lint
   package:
@@ -88,16 +88,6 @@
 - name:                  Ensure htop is present
   package:
     name:                htop
-    state:               present
-
-- name:                  Ensure device-mapper-persistent-data is present
-  package:
-    name:                device-mapper-persistent-data
-    state:               present
-
-- name:                  Ensure lvm2 is present
-  package:
-    name:                lvm2
     state:               present
 
 - name:                  Ensure OpenSCAP utils is present
