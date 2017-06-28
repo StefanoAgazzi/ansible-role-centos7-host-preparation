@@ -12,17 +12,6 @@
     name:                epel-release
     state:               present
 
-#- name:                 Ensure copr repo for dnf-centos is enabled
-#  yum_repository:
-#    name:               copr-dnf-centos
-#    description:        Copr repo for dnf-centos owned by @rpm-software-management
-#    baseurl:            https://copr-be.cloud.fedoraproject.org/results/@rpm-software-management/dnf-centos/epel-7-$basearch/
-#    gpgkey:             https://copr-be.cloud.fedoraproject.org/results/@rpm-software-management/dnf-centos/pubkey.gpg
-#    gpgcheck:           yes
-#    repo_gpgcheck:      no
-#    skip_if_unavailable: yes
-#    enabled:            yes
-
 - name:                  Ensure ELRepo GPG key is present
   rpm_key:
     state:               present
@@ -118,16 +107,6 @@
   package:
     name:                lvm2
     state:               present
-
-#- name:                 Ensure dnf is present
-#  package:
-#    name:               dnf
-#    state:              present
-
-#- name:                 Ensure dnf-plugins-core present
-#  package:
-#    name:               dnf-plugins-core
-#    state:              present
 
 - name:                  Ensure OpenSCAP utils is present
   package:

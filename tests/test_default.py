@@ -19,8 +19,6 @@ def test_packages_installation(Package):
     libsemanage_python = Package('libsemanage-python')
     ntp = Package('ntp')
     firewalld = Package('firewalld')
-    # dnf = Package('dnf')
-    # dnf_plugins_core = Package('dnf-plugins-core')
     openscap = Package('openscap')
     openscap_daemon = Package('openscap-daemon')
     scap_security_guide = Package('scap-security-guide')
@@ -38,8 +36,6 @@ def test_packages_installation(Package):
     assert ntp.is_installed
     assert firewalld.is_installed
 
-    # assert dnf.version.startswith("2.0.0")
-    # assert dnf_plugins_core.version.startswith("1.0.0")
     # TODO: check version dinamically using copr api
 
     # check installed packages come from the copr repo
