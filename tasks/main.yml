@@ -45,7 +45,13 @@
     enabled:             yes
 
 - name:                  Ensure CentOS extras repo is enabled
-  raw:                   "yum-config-manager --enable extras"
+  command:               "{{ item }}"
+  with_items:
+  - yum-config-manager --enable extras arg1
+  - touch CentOS-Base-extras.enabled arg1
+  args:
+    creates:             /CentOS-Base-extras.enabled
+
 
 - name:                  Ensure we have last version of every package
   tags:
