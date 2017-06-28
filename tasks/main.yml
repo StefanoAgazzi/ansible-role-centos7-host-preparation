@@ -33,14 +33,6 @@
     skip_if_unavailable: yes
     enabled:             yes
 
-- name:                  Ensure CentOS extras repo is enabled
-  command:               "{{ item }}"
-  with_items:
-  - yum-config-manager --enable extras arg1
-  - touch CentOS-Base-extras.enabled arg1
-  args:
-    creates:             /CentOS-Base-extras.enabled
-
 - name:                  Ensure we have last version of every package
   tags:
   - skip_ansible_lint
