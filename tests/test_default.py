@@ -25,20 +25,28 @@ def test_packages_installation(Package):
     openscap_daemon = Package('openscap-daemon')
     scap_security_guide = Package('scap-security-guide')
     kernel_ml = Package('kernel-ml')
+    htop = Package('htop')
 
+    # just check some examples packakges,
+    # mostly installed from added repos
     assert epel_release.is_installed
     assert python.is_installed
     assert libselinux_python.is_installed
     assert libsemanage_python.is_installed
+    assert htop.is_installed
+    assert kernel_ml.is_installed
     assert ntp.is_installed
     assert firewalld.is_installed
+
     # assert dnf.version.startswith("2.0.0")
     # assert dnf_plugins_core.version.startswith("1.0.0")
     # TODO: check version dinamically using copr api
+
+    # check installed packages come from the copr repo
+    # by chechking is the same version of the copr repos version
     assert openscap.version.startswith("1.2.14")
     assert openscap_daemon.version.startswith("0.1.6")
     assert scap_security_guide.version.startswith("0.1.33")
-    assert kernel_ml.is_installed
 
 
 def test_services_are_running_and_enabled(Service):

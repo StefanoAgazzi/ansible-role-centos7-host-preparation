@@ -52,7 +52,6 @@
   args:
     creates:             /CentOS-Base-extras.enabled
 
-
 - name:                  Ensure we have last version of every package
   tags:
   - skip_ansible_lint
