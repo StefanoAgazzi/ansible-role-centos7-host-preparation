@@ -40,6 +40,11 @@
     name:                '*'
     state:               latest
 
+-name:                   Ensure SELinux is enabled
+  selinux:
+    policy:              targeted
+    state:               enforcing
+
 - name:                  Ensure Python is present
   package:
     name:                python
@@ -105,6 +110,22 @@
     name:                openscap-daemon
     state:               present
 
+- name:                  Ensure kernel-ml (kernel 4.x) is present
+  package:
+    name:                kernel-ml
+    state:               present
+    enablerepo:          elrepo-kernel
+
+- name:                  Ensures cron(ie) is present
+  package:
+    name:                cronie
+    state:               present
+
+- name:                  Ensures yum-cron is present
+  package:
+    name:                yum-cron
+    state:               present
+
 - name:                  Ensure the timezone is set to UTC
   file:
     src:                 /usr/share/zoneinfo/GMT
@@ -130,6 +151,39 @@
     state:               started
     enabled:             True
 
+- name:                  Ensure cron(ie) is running and enabled
+  service:
+    name:                crond
+    state:               started
+    enabled:             True
+
+- name:                  Configure yum-cron.conf
+  template:
+    src:                 yum-cron.conf.jinja2
+    dest:                /etc/yum/yum-cron.conf
+  notify:                restart yum-cron
+  tags:                  yum-cron
+
+- name:                  Configure yum-cron-hourly.conf
+  template:
+    src:                 yum-cron-hourly.conf.jinja2
+    dest:                /etc/yum/yum-cron-hourly.conf
+  notify:                restart yum-cron
+  tags:                  yum-cron
+
+- name:                  Ensures yum-cron service is running and enabled
+  service:
+    name:                yum-cron
+    state:               started
+    enabled:             yes
+  tags:                  yum-cron
+
+- name:                  Configure yum-cron-clean to run a yum clean regularly
+  template:
+    src:                 yum-clean-cron.jinja2
+    dest:                /etc/cron.{{ yum_cron_clean_when }}/yum-clean-cron
+    mode:                0755
+
 #- name:                 Ensure the MOTD file is present and updated
 #  template:
 #    src:                templates/motd.jinja2
@@ -146,20 +200,25 @@
 #    state:              present
 #    key:                "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
 
-#- name:                 Ensure the ordinary user is sudoer with no password required
-#  lineinfile:
-#    dest:               /etc/sudoers
-#    state:              present
-#    regexp:             '^ste ALL\='
-#    line:               'ste ALL=(ALL) NOPASSWD:ALL'
-#    validate:           'visudo -cf %s'
+- name:                  Ensure ordinary user is present
+  user:
+    name:                ste
+    shell:               /bin/bash
 
-#- name:                 Ensure the hostname is the same of the inventory
-#  hostname:
-#    name:               "{{ inventory_hostname }}"
-
-- name:                  Ensure kernel-ml (kernel 4.x) is present
-  yum:
-    name:                kernel-ml
+- name:                  Ensure the ordinary user is sudoer with no password required
+  lineinfile:
+    dest:                /etc/sudoers
     state:               present
-    enablerepo:          elrepo-kernel
+    regexp:              '^ste ALL\='
+    line:                'ste ALL=(ALL) NOPASSWD:ALL'
+    validate:            'visudo -cf %s'
+
+- name:                  Ensure the hostname is the same of the inventory
+  hostname:
+    name:                "{{ inventory_hostname }}"
+
+- name:                  Ensure GRUB default boot the latest kernel
+  lineinfile:
+    path:                /etc/default/grub
+    regexp:              ^default=
+    line:                default=0
