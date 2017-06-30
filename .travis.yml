@@ -14,7 +14,6 @@ install:
 
 script:
 - ansible-lint tasks/main.yml
-- ansible-review tasks/main.yml
 
 # start test
 - molecule test

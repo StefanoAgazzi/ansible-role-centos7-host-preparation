@@ -295,8 +295,6 @@
     shell:               /bin/bash
 
 - name:                  Ensure the ordinary user is sudoer with no password required
-  tags:
-  - skip_ansible_lint
   lineinfile:
     dest:                /etc/sudoers
     state:               present
@@ -313,8 +311,6 @@
 # boot the latest kernle
 
 - name:                  Ensure GRUB default boot the latest kernel
-  tags:
-  - skip_ansible_lint
   lineinfile:
     path:                /etc/default/grub
     regexp:              ^default=
