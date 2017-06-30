@@ -13,8 +13,6 @@ install:
 - pip install molecule ansible docker
 
 script:
-# check the role/playbook's syntax.
-- ansible-playbook -i tests/inventory tests/test.yml --syntax-check
 - ansible-lint tasks/main.yml
 - ansible-review tasks/main.yml
 
