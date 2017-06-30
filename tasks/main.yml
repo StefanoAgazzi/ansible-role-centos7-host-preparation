@@ -1,11 +1,16 @@
 # tasks file for base-centos7
 ---
+
+# update system
+
 - name:                  Ensure we have the last version of every package
   tags:
   - skip_ansible_lint
   package:
     name:                '*'
     state:               latest
+
+# configure packages repositories
 
 - name:                  Ensure EPEL is present
   package:
@@ -33,6 +38,8 @@
     skip_if_unavailable: yes
     enabled:             yes
 
+# eventually update system with the new repositories configured
+
 - name:                  Ensure we have the last version of every package
   tags:
   - skip_ansible_lint
@@ -40,10 +47,7 @@
     name:                '*'
     state:               latest
 
--name:                   Ensure SELinux is enabled
-  selinux:
-    policy:              targeted
-    state:               enforcing
+# install essentials packages
 
 - name:                  Ensure Python is present
   package:
@@ -53,6 +57,11 @@
 - name:                  Ensure libselinux-python is present
   package:
     name:                libselinux-python
+    state:               present
+
+- name:                  Ensure policycoreutils-python is present
+  package:
+    name:                policycoreutils-python
     state:               present
 
 - name:                  Ensure libsemanage-python is present
@@ -121,10 +130,48 @@
     name:                cronie
     state:               present
 
+- name:                  Ensures Cockpit is present
+  package:
+    name:                cockpit
+    state:               present
+
 - name:                  Ensures yum-cron is present
   package:
     name:                yum-cron
     state:               present
+
+- name:                  Ensures openssh is present
+  package:
+    name:                openssh
+    state:               present
+
+- name:                  Ensures openssh-server is present
+  package:
+    name:                openssh-server
+    state:               present
+
+- name:                  Ensures openssh-clients is present
+  package:
+    name:                openssh-clients
+    state:               present
+
+- name:                  Ensures openssl-libs is present
+  package:
+    name:                openssl-libs
+    state:               present
+
+# check basic system configurations
+
+- name:                  Check if running inside a docker container
+  stat:
+    path:                /.dockerenv
+  register:              dockerenv_file_var
+
+- name:                  Ensure SELinux is enabled
+  selinux:
+    policy:              targeted
+    state:               enforcing
+  when:                  not dockerenv_file_var.stat.exists
 
 - name:                  Ensure the timezone is set to UTC
   file:
@@ -132,18 +179,17 @@
     dest:                /etc/localtime
     state:               link
 
+- name:                  Ensure the sshd service is running and enabled
+  service:
+    name:                sshd
+    state:               started
+    enabled:             True
+
 - name:                  Ensure the NTP service is running and enabled
   service:
     name:                ntpd
     state:               started
     enabled:             True
-
-#- name:                 Ensure SSH can pass the firewall
-#  firewalld:
-#    service:            ssh
-#    state:              enabled
-#    permanent:          True
-#    immediate:          True
 
 - name:                  Ensure FirewallD is running and enabled
   service:
@@ -156,6 +202,28 @@
     name:                crond
     state:               started
     enabled:             True
+
+- name:                  Ensure Cockpit is running and enabled
+  service:
+    name:                cockpit
+    state:               started
+    enabled:             True
+
+- name:                  Ensure SSH can pass the firewall
+  firewalld:
+    service:             ssh
+    state:               enabled
+    permanent:           True
+    immediate:           True
+
+- name:                  Ensure Cockpit can pass the firewall
+  firewalld:
+    service:             cockpit
+    state:               enabled
+    permanent:           True
+    immediate:           True
+
+# configure auotmatic security updates
 
 - name:                  Configure yum-cron.conf
   template:
@@ -184,14 +252,13 @@
     dest:                /etc/cron.{{ yum_cron_clean_when }}/yum-clean-cron
     mode:                0755
 
-#- name:                 Ensure the MOTD file is present and updated
-#  template:
-#    src:                templates/motd.jinja2
-#    dest:               /etc/motd
-#    owner:              root
-#    group:              root
-#    mode:               0644
-#    become:             True
+- name:                  Ensure the MOTD file is present and updated
+  template:
+    src:                 motd.jinja2
+    dest:                /etc/motd
+    owner:               root
+    group:               root
+    mode:                0644
 
 #- name:                 Set authorized key for ordinary user copying it from current user
 #  authorized_key:
@@ -199,6 +266,8 @@
 #    user:               ste
 #    state:              present
 #    key:                "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+# configure ordinary user with ssh key login only
 
 - name:                  Ensure ordinary user is present
   user:
@@ -216,9 +285,14 @@
 - name:                  Ensure the hostname is the same of the inventory
   hostname:
     name:                "{{ inventory_hostname }}"
+  when:                  not dockerenv_file_var.stat.exists
+
+
+# boot the latest kernle
 
 - name:                  Ensure GRUB default boot the latest kernel
   lineinfile:
     path:                /etc/default/grub
     regexp:              ^default=
     line:                default=0
+  when:                  not dockerenv_file_var.stat.exists
