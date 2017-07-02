@@ -22,12 +22,11 @@ galaxy_info:
   - base
   - essential
   - prepare
-  - first-run
-  - openscap
+  - openscaps
   - updated
-  - linux-4.x
-  - kernel-ml
-  - kernel-4.x
+  - linux4
+  - kernel4
+  - kernelml
   - GPLv3
 
 dependencies: []
