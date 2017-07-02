@@ -308,11 +308,12 @@
   when:                  not dockerenv_file_var.stat.exists
 
 
-# boot the latest kernle
+# boot the latest kernel
 
 - name:                  Ensure GRUB default boot the latest kernel
   lineinfile:
     path:                /etc/default/grub
-    regexp:              ^default=
-    line:                default=0
+    regexp:              '^GRUB_DEFAULT='
+    line:                'GRUB_DEFAULT=0'
   when:                  not dockerenv_file_var.stat.exists
+
