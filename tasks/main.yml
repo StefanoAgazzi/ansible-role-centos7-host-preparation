@@ -309,11 +309,16 @@
 
 
 # boot the latest kernel
+- name:                  Remove Grub default entry
+  lineinfile:
+    path:                /etc/default/grub
+    regexp:              "GRUB_DEFAULT="
+    state:               absent
+  when:                  not dockerenv_file_var.stat.exists
 
 - name:                  Ensure GRUB default boot the latest kernel
   lineinfile:
     path:                /etc/default/grub
-    regexp:              '^GRUB_DEFAULT='
-    line:                'GRUB_DEFAULT=0'
+    line:                "GRUB_DEFAULT=0"
+    state:               present
   when:                  not dockerenv_file_var.stat.exists
-

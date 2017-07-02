@@ -39,7 +39,7 @@ def test_packages_installation(Package):
     # TODO: check version dinamically using copr api
 
     # check installed packages come from the copr repo
-    # by chechking is the same version of the copr repos version
+    # by checking is the same version of the copr repos version
     assert openscap.version.startswith("1.2.14")
     assert openscap_daemon.version.startswith("0.1.6")
     assert scap_security_guide.version.startswith("0.1.33")
@@ -53,3 +53,10 @@ def test_services_are_running_and_enabled(Service):
     assert firewalld.is_enabled
     assert ntpd.is_running
     assert ntpd.is_enabled
+
+# disable when running inside docker
+
+# def test_grub(File):
+#     grub = File("/etc/default/grub")
+#
+#     assert grub.contains("GRUB_DEFAULT=saved")
