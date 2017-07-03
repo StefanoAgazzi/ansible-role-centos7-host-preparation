@@ -42,7 +42,7 @@ def test_packages_installation(Package):
     # by checking is the same version of the copr repos version
     assert openscap.version.startswith("1.2.14")
     assert openscap_daemon.version.startswith("0.1.6")
-    assert scap_security_guide.version.startswith("0.1.33")
+    assert scap_security_guide.version.startswith("0.1.34")
 
 
 def test_services_are_running_and_enabled(Service):
