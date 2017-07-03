@@ -326,3 +326,20 @@
 - name:                  Ensure GRUB default entry boots the latest kernel
   command:               grub2-mkconfig -o /boot/grub2/grub.cfg
   when:                  not dockerenv_file_var.stat.exists
+
+- name:                  Restart machine
+  become:                true
+  shell:                 reboot
+  async:                 0
+  poll:                  0
+  ignore_errors:         true
+
+- name:                  Restart wait
+  become:                false
+  local_action:
+    wait_for:
+    host:                "{{ ansible_host | default(inventory_hostname) }}"
+    port:                22
+    state:               started
+    delay:               15
+    timeout:             300
