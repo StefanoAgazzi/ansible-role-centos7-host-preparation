@@ -145,16 +145,6 @@
     name:                cockpit-storaged
     state:               present
 
-- name:                  Ensures cockpit-networkmanager is present
-  package:
-    name:                cockpit-networkmanager
-    state:               present
-
-- name:                  Ensures cockpit-docker is present
-  package:
-    name:                cockpit-docker
-    state:               present
-
 - name:                  Ensures yum-cron is present
   package:
     name:                yum-cron
