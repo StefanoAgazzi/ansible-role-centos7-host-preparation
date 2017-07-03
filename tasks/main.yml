@@ -316,9 +316,13 @@
     state:               absent
   when:                  not dockerenv_file_var.stat.exists
 
-- name:                  Ensure GRUB default boot the latest kernel
+- name:                  Configure GRUB default entry to boots the latest kernel
   lineinfile:
     path:                /etc/default/grub
     line:                "GRUB_DEFAULT=0"
     state:               present
+  when:                  not dockerenv_file_var.stat.exists
+
+- name:                  Ensure GRUB default entry boots the latest kernel
+  command:               grub2-mkconfig -o /boot/grub2/grub.cfg
   when:                  not dockerenv_file_var.stat.exists
