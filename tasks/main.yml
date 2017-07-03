@@ -333,6 +333,7 @@
   async:                 0
   poll:                  0
   ignore_errors:         true
+  when:                  not dockerenv_file_var.stat.exists
 
 - name:                  Restart wait
   become:                false
@@ -343,3 +344,4 @@
     state:               started
     delay:               15
     timeout:             300
+  when:                  not dockerenv_file_var.stat.exists
