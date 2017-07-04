@@ -343,8 +343,7 @@
   when:                  not dockerenv_file_var.stat.exists
 
 - name:                  Wait until SSH is available
-  become:                true
-  become_user:           ste
+  become:                false
   local_action:
     module:              wait_for
     host:                "{{ ansible_host | default(inventory_hostname) }}"
