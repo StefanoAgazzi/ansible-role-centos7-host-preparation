@@ -334,16 +334,21 @@
   command:               grub2-set-default 0
   when:                  not dockerenv_file_var.stat.exists
 
+- name:                  Restart machine
+  become:                true
+  command:               sleep 2 && shutdown -r now
+  async:                 1
+  poll:                  0
+  ignore_errors:         true
+  when:                  not dockerenv_file_var.stat.exists
 
-- name:                 Restart machine
-  become:               true
-  command:              sleep 2 && shutdown -r now 
-  async:                1
-  poll:                 0
-  ignore_errors:        true
-  when:                 not dockerenv_file_var.stat.exists
-
-- name:                 Restart wait
-  become:               false
-  local_action:         wait_for host="{{ ansible_host | default(inventory_hostname) }}" port=22 timeout=300
-  when:                 not dockerenv_file_var.stat.exists
+- name:                  Wait until SSH is available
+  local_action:
+    module:              wait_for
+    host:                "{{ ansible_host | default(inventory_hostname) }}"
+    port:                22
+    delay:               60
+    timeout:             320
+    state:               started
+  with_items:            launched_instances.instances
+  when:                  not dockerenv_file_var.stat.exists
