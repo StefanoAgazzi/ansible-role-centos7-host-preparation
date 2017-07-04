@@ -194,6 +194,26 @@
     dest:                /etc/localtime
     state:               link
 
+- name:                  Ensure SSH can pass the firewall
+  firewalld:
+    service:             ssh
+    state:               enabled
+    permanent:           True
+    immediate:           True
+
+- name:                  Ensure Cockpit can pass the firewall
+  firewalld:
+    service:             cockpit
+    state:               enabled
+    permanent:           True
+    immediate:           True
+
+- name:                  Ensure FirewallD is running and enabled
+  service:
+    name:                firewalld
+    state:               started
+    enabled:             True
+
 - name:                  Ensure the sshd service is running and enabled
   service:
     name:                sshd
@@ -203,12 +223,6 @@
 - name:                  Ensure the NTP service is running and enabled
   service:
     name:                ntpd
-    state:               started
-    enabled:             True
-
-- name:                  Ensure FirewallD is running and enabled
-  service:
-    name:                firewalld
     state:               started
     enabled:             True
 
@@ -223,20 +237,6 @@
     name:                cockpit
     state:               started
     enabled:             True
-
-- name:                  Ensure SSH can pass the firewall
-  firewalld:
-    service:             ssh
-    state:               enabled
-    permanent:           True
-    immediate:           True
-
-- name:                  Ensure Cockpit can pass the firewall
-  firewalld:
-    service:             cockpit
-    state:               enabled
-    permanent:           True
-    immediate:           True
 
 # configure auotmatic security updates
 
