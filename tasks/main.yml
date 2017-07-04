@@ -234,15 +234,15 @@
     state:               started
     enabled:             True
 
-
-- name:                  Ensure cockpit service is restarted
-  service:
-    name:                cockpit
-    state:               restarted
-
 - name:                  Ensure cockpit socket is enabled and restarted
   service:
     name:                cockpit.socket
+    state:               restarted
+    enabled:             true
+
+- name:                  Ensure cockpit service is restarted and enabled
+  service:
+    name:                cockpit
     state:               restarted
     enabled:             true
 
