@@ -336,7 +336,7 @@
 
 - name:                  Restart machine
   become:                true
-  command:               sleep 2 && shutdown -r now
+  command:               sleep 2 && reboot
   async:                 0
   poll:                  0
   ignore_errors:         true
