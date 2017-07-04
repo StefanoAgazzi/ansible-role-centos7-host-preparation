@@ -237,13 +237,13 @@
 - name:                  Ensure cockpit socket is enabled and restarted
   service:
     name:                cockpit.socket
-    state:               restarted
+    state:               started
     enabled:             true
 
 - name:                  Ensure cockpit service is restarted and enabled
   service:
     name:                cockpit
-    state:               restarted
+    state:               started
     enabled:             true
 
 # configure auotmatic security updates
