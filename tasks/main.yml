@@ -145,6 +145,11 @@
     name:                cockpit-storaged
     state:               present
 
+- name:                  Ensures cockpit-ws is present
+  package:
+    name:                cockpit-ws
+    state:               present
+
 - name:                  Ensures yum-cron is present
   package:
     name:                yum-cron
@@ -315,6 +320,10 @@
 
 - name:                  Ensure GRUB default entry boots the latest kernel
   command:               grub2-mkconfig -o /boot/grub2/grub.cfg
+  when:                  not dockerenv_file_var.stat.exists
+
+- name:                  Ensure /boot/grub2/grubenv saved entry boots the latest kernel
+  command:               grub2-set-default 0
   when:                  not dockerenv_file_var.stat.exists
 
 - name:                  Restart machine
