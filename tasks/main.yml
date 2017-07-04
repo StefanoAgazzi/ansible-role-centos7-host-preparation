@@ -334,15 +334,16 @@
   command:               grub2-set-default 0
   when:                  not dockerenv_file_var.stat.exists
 
-- name:                  Restart machine
-  become:                true
-  command:               reboot
-  async:                 0
-  poll:                  0
-  ignore_errors:         true
-  when:                  not dockerenv_file_var.stat.exists
-
-- name:                  Restart wait
-  become:                false
-  local_action:          wait_for host="{{ ansible_host | default(inventory_hostname) }}" port=22 timeout=300
-  when:                  not dockerenv_file_var.stat.exists
+#
+#- name:                 Restart machine
+#  become:               true
+#  command:              reboot
+#  async:                0
+#  poll:                 0
+#  ignore_errors:        true
+#  when:                 not dockerenv_file_var.stat.exists
+#
+#- name:                 Restart wait
+#  become:               false
+#  local_action:         wait_for host="{{ ansible_host | default(inventory_hostname) }}" port=22 timeout=300
+#  when:                 not dockerenv_file_var.stat.exists
