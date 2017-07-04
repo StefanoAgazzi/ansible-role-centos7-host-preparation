@@ -194,6 +194,12 @@
     dest:                /etc/localtime
     state:               link
 
+- name:                  Ensure FirewallD is running and enabled
+  service:
+    name:                firewalld
+    state:               started
+    enabled:             True
+
 - name:                  Ensure SSH can pass the firewall
   firewalld:
     service:             ssh
@@ -209,12 +215,6 @@
     permanent:           True
     immediate:           True
     zone:                public
-
-- name:                  Ensure FirewallD is running and enabled
-  service:
-    name:                firewalld
-    state:               started
-    enabled:             True
 
 - name:                  Ensure the sshd service is running and enabled
   service:
