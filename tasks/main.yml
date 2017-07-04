@@ -351,5 +351,4 @@
     timeout:             320
     state:               started
     become:              false
-  with_items:            launched_instances.instances
   when:                  not dockerenv_file_var.stat.exists
