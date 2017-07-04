@@ -232,10 +232,10 @@
     state:               started
     enabled:             True
 
-- name:                  Ensure Cockpit is running and enabled
+
+- name:                  Ensure Cockpit is enabled
   service:
     name:                cockpit
-    state:               started
     enabled:             True
 
 # configure auotmatic security updates
