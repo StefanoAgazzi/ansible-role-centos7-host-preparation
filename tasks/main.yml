@@ -233,7 +233,7 @@
     enabled:             True
 
 - name:                  Ensure Cockpit is running and enabled
-  service:
+  systemd:
     name:                cockpit
     state:               started
     enabled:             True
