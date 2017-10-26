@@ -24,7 +24,7 @@
 
 - name:                  Ensure ELRepo is enabled
   package:
-    name:                http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
+    name:                http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
     state:               present
 
 - name:                  Ensure copr repo for OpenSCAP is enabled
@@ -246,7 +246,7 @@
     state:               started
     enabled:             true
 
-# configure auotmatic security updates
+# configure automatic security updates
 
 - name:                  Configure yum-cron.conf
   template:
