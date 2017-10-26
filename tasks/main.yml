@@ -22,11 +22,6 @@
     state:               present
     key:                 https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
 
-#- name:                  Ensure ELRepo is enabled
-#  package:
-#    name:                http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
-#    state:               present
-
 - name:                  Ensure ELRepo is enabled
   yum:
     name:                "http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm"
@@ -347,13 +342,19 @@
   ignore_errors:         true
   when:                  not dockerenv_file_var.stat.exists
 
-- name:                  Wait until SSH is available
-  become:                false
-  local_action:
-    module:              wait_for
-    host:                "{{ ansible_host | default(inventory_hostname) }}"
-    port:                22
-    delay:               60
-    timeout:             320
-    state:               started
+#- name:                  Wait until SSH is available
+#  become:                false
+#  local_action:
+#    module:              wait_for
+#    host:                "{{ ansible_host | default(inventory_hostname) }}"
+#    port:                22
+#    delay:               60
+#    timeout:             320
+#    state:               started
+#  when:                  not dockerenv_file_var.stat.exists
+
+
+- name:                  Wait for the server to finish rebooting
+  sudo:                  no
+  local_action:          wait_for host="{{ inventory_hostname }}" search_regex=OpenSSH port=22 timeout=300
   when:                  not dockerenv_file_var.stat.exists
