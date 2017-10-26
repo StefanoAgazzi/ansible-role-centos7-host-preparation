@@ -23,7 +23,7 @@
     key:                 https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
 
 - name:                  Ensure ELRepo is enabled
-  yum:
+  package:
     name:                "http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm"
     state:               present
 
@@ -346,7 +346,7 @@
   become:                false
   local_action:
     module:              wait_for
-    host:                "{{default(inventory_hostname)}}"
+    host:                "{{ inventory_hostname }}"
     port:                22
     delay:               60
     timeout:             320
