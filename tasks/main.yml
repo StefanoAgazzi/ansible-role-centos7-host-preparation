@@ -125,52 +125,52 @@
     state:               present
     enablerepo:          elrepo-kernel
 
-- name:                  Ensures cron(ie) is present
+- name:                  Ensure cron(ie) is present
   package:
     name:                cronie
     state:               present
 
-- name:                  Ensures Cockpit is present
+- name:                  Ensure Cockpit is present
   package:
     name:                cockpit
     state:               present
 
-- name:                  Ensures cockpit-dashboard is present
+- name:                  Ensure cockpit-dashboard is present
   package:
     name:                cockpit-dashboard
     state:               present
 
-- name:                  Ensures cockpit-storaged is present
+- name:                  Ensure cockpit-storaged is present
   package:
     name:                cockpit-storaged
     state:               present
 
-- name:                  Ensures cockpit-ws is present
+- name:                  Ensure cockpit-ws is present
   package:
     name:                cockpit-ws
     state:               present
 
-- name:                  Ensures yum-cron is present
+- name:                  Ensure yum-cron is present
   package:
     name:                yum-cron
     state:               present
 
-- name:                  Ensures openssh is present
+- name:                  Ensure openssh is present
   package:
     name:                openssh
     state:               present
 
-- name:                  Ensures openssh-server is present
+- name:                  Ensure openssh-server is present
   package:
     name:                openssh-server
     state:               present
 
-- name:                  Ensures openssh-clients is present
+- name:                  Ensure openssh-clients is present
   package:
     name:                openssh-clients
     state:               present
 
-- name:                  Ensures openssl-libs is present
+- name:                  Ensure openssl-libs is present
   package:
     name:                openssl-libs
     state:               present
@@ -262,7 +262,7 @@
   notify:                restart yum-cron
   tags:                  yum-cron
 
-- name:                  Ensures yum-cron service is running and enabled
+- name:                  Ensure yum-cron service is running and enabled
   service:
     name:                yum-cron
     state:               started
