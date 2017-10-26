@@ -22,9 +22,14 @@
     state:               present
     key:                 https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
 
+#- name:                  Ensure ELRepo is enabled
+#  package:
+#    name:                http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
+#    state:               present
+
 - name:                  Ensure ELRepo is enabled
-  package:
-    name:                http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
+  yum:
+    name:                "http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm"
     state:               present
 
 - name:                  Ensure copr repo for OpenSCAP is enabled
