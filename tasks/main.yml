@@ -336,7 +336,7 @@
 
 - name:                  Restart machine
   become:                true
-  shell:                 sleep 2 && reboot
+  shell:                 sleep 2 && shutdown -r +1 "System is going down for reboot"
   async:                 1
   poll:                  0
   ignore_errors:         true
