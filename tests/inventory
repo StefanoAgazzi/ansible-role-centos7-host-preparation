@@ -1,3 +1,0 @@
-localhost
-[group1]
-ansible-role-base-centos7 ansible_connection=docker
