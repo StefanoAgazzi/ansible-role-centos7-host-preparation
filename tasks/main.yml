@@ -195,7 +195,7 @@
     state:               link
 
 - name:                  Ensure FirewallD is running and enabled
-  service:
+  systemd:
     name:                firewalld
     state:               started
     enabled:             True

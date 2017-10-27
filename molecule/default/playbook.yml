@@ -1,0 +1,6 @@
+# Standards: 2.0
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: ansible-role-base-centos7

@@ -1,5 +1,0 @@
-# Standards: 1.0
----
-- hosts: all
-  roles:
-  - role: ansible-role-base-centos7
