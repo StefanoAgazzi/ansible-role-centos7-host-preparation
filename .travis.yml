@@ -2,15 +2,15 @@
 sudo: required
 language: python
 services:
-- docker
+  - docker
 
 before_install:
-- sudo apt-get -qq update
-- sudo apt-get install --option Dpkg::Options::="--force-confold" --force-yes --assume-yes docker-ce
-- docker --version
+  - sudo apt-get -qq update
+  - sudo apt-get install --option Dpkg::Options::="--force-confold" --force-yes --assume-yes docker-ce
+  - docker --version
 
 install:
-- pip install molecule ansible docker docker-py
+  - pip install molecule ansible docker docker-py
 
 script:
 - ansible-lint tasks/main.yml

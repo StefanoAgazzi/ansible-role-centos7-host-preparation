@@ -262,14 +262,12 @@
   template:
     src:                 yum-cron.conf.jinja2
     dest:                /etc/yum/yum-cron.conf
-  notify:                restart yum-cron
   tags:                  yum-cron
 
 - name:                  Configure yum-cron-hourly.conf
   template:
     src:                 yum-cron-hourly.conf.jinja2
     dest:                /etc/yum/yum-cron-hourly.conf
-  notify:                restart yum-cron
   tags:                  yum-cron
 
 - name:                  Ensure yum-cron service is running and enabled
