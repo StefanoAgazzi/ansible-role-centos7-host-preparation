@@ -3,366 +3,370 @@
 
 # update system
 
-- name:                  Ensure we have the last version of every package
+- name: Ensure we have the last version of every package
   tags:
   - skip_ansible_lint
   package:
-    name:                '*'
-    state:               latest
+    name: '*'
+    state: latest
 
 # configure packages repositories
 
-- name:                  Ensure EPEL is present
+- name: Ensure EPEL is present
   package:
-    name:                epel-release
-    state:               present
+    name: epel-release
+    state: present
 
-- name:                  Ensure ELRepo GPG key is present
+- name: Ensure ELRepo GPG key is present
   rpm_key:
-    state:               present
-    key:                 https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+    state: present
+    key: https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
 
-- name:                  Ensure ELRepo is enabled
+- name: Ensure ELRepo is enabled
   package:
-    name:                "http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm"
-    state:               present
+    name: "http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm"
+    state: present
 
-- name:                  Ensure copr repo for OpenSCAP is enabled
+- name: Ensure copr repo for OpenSCAP is enabled
   yum_repository:
-    name:                copr-openscap
-    description:         OpenSCAP copr lastest
-    baseurl:             https://copr-be.cloud.fedoraproject.org/results/openscapmaint/openscap-latest/epel-7-$basearch/
-    gpgkey:              https://copr-be.cloud.fedoraproject.org/results/openscapmaint/openscap-latest/pubkey.gpg
-    gpgcheck:            yes
-    repo_gpgcheck:       no
-    skip_if_unavailable: yes
-    enabled:             yes
+    name: copr-openscap
+    description: OpenSCAP copr lastest
+    baseurl: >-
+     https://copr-be.cloud.fedoraproject.org/results/openscapmaint/openscap-latest/epel-7-$basearch/
+    gpgkey: >-
+     https://copr-be.cloud.fedoraproject.org/results/openscapmaint/openscap-latest/pubkey.gpg
+    gpgcheck: "yes"
+    repo_gpgcheck: "no"
+    skip_if_unavailable: "yes"
+    enabled: "yes"
 
 # eventually update system with the new repositories configured
 
-- name:                  Ensure we have the last version of every package
+- name: Ensure we have the last version of every package
   tags:
-  - skip_ansible_lint
+    - skip_ansible_lint
   package:
-    name:                '*'
-    state:               latest
+    name: '*'
+    state: latest
 
 # install essentials packages
 
-- name:                  Ensure Python is present
+- name: Ensure Python is present
   package:
-    name:                python
-    state:               present
+    name: python
+    state: present
 
-- name:                  Ensure libselinux-python is present
+- name: Ensure libselinux-python is present
   package:
-    name:                libselinux-python
-    state:               present
+    name: libselinux-python
+    state: present
 
-- name:                  Ensure selinux-policy is present
+- name: Ensure selinux-policy is present
   package:
-    name:                selinux-policy
-    state:               present
+    name: selinux-policy
+    state: present
 
-- name:                  Ensure selinux-policy-targeted is present
+- name: Ensure selinux-policy-targeted is present
   package:
-    name:                selinux-policy-targeted
-    state:               present
+    name: selinux-policy-targeted
+    state: present
 
-- name:                  Ensure policycoreutils-python is present
+- name: Ensure policycoreutils-python is present
   package:
-    name:                policycoreutils-python
-    state:               present
+    name: policycoreutils-python
+    state: present
 
-- name:                  Ensure libsemanage-python is present
+- name: Ensure libsemanage-python is present
   package:
-    name:                libsemanage-python
-    state:               present
+    name: libsemanage-python
+    state: present
 
-- name:                  Ensure NTP is present
+- name: Ensure NTP is present
   package:
-    name:                ntp
-    state:               present
+    name: ntp
+    state: present
 
-- name:                  Ensure FirewallD is present
+- name: Ensure FirewallD is present
   package:
-    name:                firewalld
-    state:               present
+    name: firewalld
+    state: present
 
-- name:                  Ensure tmux is present
+- name: Ensure tmux is present
   package:
-    name:                tmux
-    state:               present
+    name: tmux
+    state: present
 
-- name:                  Ensure mlocate is present
+- name: Ensure mlocate is present
   package:
-    name:                mlocate
-    state:               present
+    name: mlocate
+    state: present
 
-- name:                  Ensure vim-common is present
+- name: Ensure vim-common is present
   package:
-    name:                vim-common
-    state:               present
+    name: vim-common
+    state: present
 
-- name:                  Ensure yum-utils is present
+- name: Ensure yum-utils is present
   package:
-    name:                yum-utils
-    state:               present
+    name: yum-utils
+    state: present
 
-- name:                  Ensure htop is present
+- name: Ensure htop is present
   package:
-    name:                htop
-    state:               present
+    name: htop
+    state: present
 
-- name:                  Ensure OpenSCAP utils is present
+- name: Ensure OpenSCAP utils is present
   package:
-    name:                openscap-utils
-    state:               present
+    name: openscap-utils
+    state: present
 
-- name:                  Ensure SCAP security guide is present
+- name: Ensure SCAP security guide is present
   package:
-    name:                scap-security-guide
-    state:               present
+    name: scap-security-guide
+    state: present
 
-- name:                  Ensure OpenSCAP daemon is present
+- name: Ensure OpenSCAP daemon is present
   package:
-    name:                openscap-daemon
-    state:               present
+    name: openscap-daemon
+    state: present
 
-- name:                  Ensure kernel-ml (kernel 4.x) is present
+- name: Ensure kernel-ml (kernel 4.x) is present
   package:
-    name:                kernel-ml
-    state:               present
-    enablerepo:          elrepo-kernel
+    name: kernel-ml
+    state: present
+    enablerepo: elrepo-kernel
 
-- name:                  Ensure cron(ie) is present
+- name: Ensure cron(ie) is present
   package:
-    name:                cronie
-    state:               present
+    name: cronie
+    state: present
 
-- name:                  Ensure Cockpit is present
+- name: Ensure Cockpit is present
   package:
-    name:                cockpit
-    state:               present
+    name: cockpit
+    state: present
 
-- name:                  Ensure cockpit-dashboard is present
+- name: Ensure cockpit-dashboard is present
   package:
-    name:                cockpit-dashboard
-    state:               present
+    name: cockpit-dashboard
+    state: present
 
-- name:                  Ensure cockpit-storaged is present
+- name: Ensure cockpit-storaged is present
   package:
-    name:                cockpit-storaged
-    state:               present
+    name: cockpit-storaged
+    state: present
 
-- name:                  Ensure cockpit-ws is present
+- name: Ensure cockpit-ws is present
   package:
-    name:                cockpit-ws
-    state:               present
+    name: cockpit-ws
+    state: present
 
-- name:                  Ensure yum-cron is present
+- name: Ensure yum-cron is present
   package:
-    name:                yum-cron
-    state:               present
+    name: yum-cron
+    state: present
 
-- name:                  Ensure openssh is present
+- name: Ensure openssh is present
   package:
-    name:                openssh
-    state:               present
+    name: openssh
+    state: present
 
-- name:                  Ensure openssh-server is present
+- name: Ensure openssh-server is present
   package:
-    name:                openssh-server
-    state:               present
+    name: openssh-server
+    state: present
 
-- name:                  Ensure openssh-clients is present
+- name: Ensure openssh-clients is present
   package:
-    name:                openssh-clients
-    state:               present
+    name: openssh-clients
+    state: present
 
-- name:                  Ensure openssl-libs is present
+- name: Ensure openssl-libs is present
   package:
-    name:                openssl-libs
-    state:               present
+    name: openssl-libs
+    state: present
 
 # check basic system configurations
 
-- name:                  Check if running inside a docker container
+- name: Check if running inside a docker container
   stat:
-    path:                /.dockerenv
-  register:              dockerenv_file_var
+    path: /.dockerenv
+  register: dockerenv_file_var
 
-- name:                  Ensure SELinux is enabled
+- name: Ensure SELinux is enabled
   selinux:
-    policy:              targeted
-    state:               enforcing
-  when:                  not dockerenv_file_var.stat.exists
+    policy: targeted
+    state: enforcing
+  when: not dockerenv_file_var.stat.exists
 
-- name:                  Ensure the timezone is set to UTC
+- name: Ensure the timezone is set to UTC
   file:
-    src:                 /usr/share/zoneinfo/GMT
-    dest:                /etc/localtime
-    state:               link
+    src: /usr/share/zoneinfo/GMT
+    dest: /etc/localtime
+    state: link
 
-- name:                  Ensure FirewallD is running and enabled
+- name: Ensure FirewallD is running and enabled
   systemd:
-    name:                firewalld
-    state:               started
-    enabled:             True
+    name: firewalld
+    state: started
+    enabled: "True"
 
-- name:                  Ensure SSH can pass the firewall
+- name: Ensure SSH can pass the firewall
   firewalld:
-    service:             ssh
-    state:               enabled
-    permanent:           True
-    immediate:           True
-    zone:                public
+    service: ssh
+    state: enabled
+    permanent: "True"
+    immediate: "True"
+    zone: public
 
-- name:                  Ensure Cockpit can pass the firewall
+- name: Ensure Cockpit can pass the firewall
   firewalld:
-    service:             cockpit
-    state:               enabled
-    permanent:           True
-    immediate:           True
-    zone:                public
+    service: cockpit
+    state: enabled
+    permanent: "True"
+    immediate: "True"
+    zone: public
 
-- name:                  Ensure the sshd service is running and enabled
+- name: Ensure the sshd service is running and enabled
   service:
-    name:                sshd
-    state:               started
-    enabled:             True
+    name: sshd
+    state: started
+    enabled: "True"
 
-- name:                  Ensure the NTP service is running and enabled
+- name: Ensure the NTP service is running and enabled
   service:
-    name:                ntpd
-    state:               started
-    enabled:             True
+    name: ntpd
+    state: started
+    enabled: "True"
 
-- name:                  Ensure cron(ie) is running and enabled
+- name: Ensure cron(ie) is running and enabled
   service:
-    name:                crond
-    state:               started
-    enabled:             True
+    name: crond
+    state: started
+    enabled: "True"
 
-- name:                  Ensure cockpit service is restarted and enabled
+- name: Ensure cockpit service is restarted and enabled
   service:
-    name:                cockpit
-    state:               started
-    enabled:             true
+    name: cockpit
+    state: started
+    enabled: "True"
 
-- name:                  Ensure cockpit socket is enabled and restarted
+- name: Ensure cockpit socket is enabled and restarted
   service:
-    name:                cockpit.socket
-    state:               started
-    enabled:             true
+    name: cockpit.socket
+    state: started
+    enabled: "True"
 
 # configure automatic security updates
 
-- name:                  Configure yum-cron.conf
+- name: Configure yum-cron.conf
   template:
-    src:                 yum-cron.conf.jinja2
-    dest:                /etc/yum/yum-cron.conf
-  tags:                  yum-cron
+    src: yum-cron.conf.jinja2
+    dest: /etc/yum/yum-cron.conf
+  tags: yum-cron
 
-- name:                  Configure yum-cron-hourly.conf
+- name: Configure yum-cron-hourly.conf
   template:
-    src:                 yum-cron-hourly.conf.jinja2
-    dest:                /etc/yum/yum-cron-hourly.conf
-  tags:                  yum-cron
+    src: yum-cron-hourly.conf.jinja2
+    dest: /etc/yum/yum-cron-hourly.conf
+  tags: yum-cron
 
-- name:                  Ensure yum-cron service is running and enabled
+- name: Ensure yum-cron service is running and enabled
   service:
-    name:                yum-cron
-    state:               started
-    enabled:             yes
-  tags:                  yum-cron
+    name: yum-cron
+    state: started
+    enabled: "yes"
+  tags: yum-cron
 
-- name:                  Configure yum-cron-clean to run a yum clean regularly
+- name: Configure yum-cron-clean to run a yum clean regularly
   template:
-    src:                 yum-clean-cron.jinja2
-    dest:                /etc/cron.{{ yum_cron_clean_when }}/yum-clean-cron
-    mode:                0755
+    src: yum-clean-cron.jinja2
+    dest: /etc/cron.{{ yum_cron_clean_when }}/yum-clean-cron
+    mode: 0755
 
-- name:                  Ensure the MOTD file is present and updated
+- name: Ensure the MOTD file is present and updated
   template:
-    src:                 motd.jinja2
-    dest:                /etc/motd
-    owner:               root
-    group:               root
-    mode:                0644
+    src: motd.jinja2
+    dest: /etc/motd
+    owner: root
+    group: root
+    mode: 0644
 
-#- name:                 Set authorized key for ordinary user copying it from current user
-#  authorized_key:
-#  #TODO:                replace hard coded username ste with a variable
-#    user:               ste
-#    state:              present
-#    key:                "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+# - name:  Set authorized key for ordinary user copying it from current user
+#   authorized_key:
+#   #TODO: replace hard coded username ste with a variable
+#     user: ste
+#     state:  present
+#     key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
 
 # configure ordinary user with ssh key login only
 
-- name:                  Ensure ordinary user is present
+- name: Ensure ordinary user is present
   user:
-    name:                ste
-    shell:               /bin/bash
+    name: ste
+    shell: /bin/bash
 
-- name:                  Ensure the ordinary user is sudoer with no password required
+- name: Ensure the ordinary user is sudoer with no password required
   lineinfile:
-    dest:                /etc/sudoers
-    state:               present
-    regexp:              '^ste ALL\='
-    line:                'ste ALL=(ALL) NOPASSWD:ALL'
-    validate:            'visudo -cf %s'
+    dest: /etc/sudoers
+    state: present
+    regexp: '^ste ALL\='
+    line: 'ste ALL=(ALL) NOPASSWD:ALL'
+    validate: 'visudo -cf %s'
 
-- name:                  Ensure the hostname is the same of the inventory
+- name: Ensure the hostname is the same of the inventory
   hostname:
-    name:                "{{ inventory_hostname }}"
-  when:                  not dockerenv_file_var.stat.exists
+    name: "{{ inventory_hostname }}"
+  when: not dockerenv_file_var.stat.exists
 
 
 # boot the latest kernel
-- name:                  Remove Grub default entry
+- name: Remove Grub default entry
   lineinfile:
-    path:                /etc/default/grub
-    regexp:              "GRUB_DEFAULT="
-    state:               absent
-  when:                  not dockerenv_file_var.stat.exists
+    path: /etc/default/grub
+    regexp: "GRUB_DEFAULT="
+    state: absent
+  when: not dockerenv_file_var.stat.exists
 
-- name:                  Configure GRUB default entry to boots the latest kernel
+- name: Configure GRUB default entry to boots the latest kernel
   lineinfile:
-    path:                /etc/default/grub
-    line:                "GRUB_DEFAULT=0"
-    state:               present
-  when:                  not dockerenv_file_var.stat.exists
+    path: /etc/default/grub
+    line: "GRUB_DEFAULT=0"
+    state: present
+  when: not dockerenv_file_var.stat.exists
 
-- name:                  Ensure GRUB default entry boots the latest kernel
-  command:               grub2-mkconfig -o /boot/grub2/grub.cfg
-  when:                  not dockerenv_file_var.stat.exists
+- name: Ensure GRUB default entry boots the latest kernel
+  command: grub2-mkconfig -o /boot/grub2/grub.cfg
+  when: not dockerenv_file_var.stat.exists
 
-- name:                  Ensure /boot/grub2/grubenv saved entry boots the latest kernel
-  command:               grub2-set-default 0
-  when:                  not dockerenv_file_var.stat.exists
+- name: Ensure /boot/grub2/grubenv saved entry boots the latest kernel
+  command: grub2-set-default 0
+  when: not dockerenv_file_var.stat.exists
 
-- name:                  Restart machine
-  become:                true
-  shell:                 sleep 2 && shutdown -r +1 "System is going down for reboot"
-  async:                 1
-  poll:                  0
-  ignore_errors:         true
-  when:                  not dockerenv_file_var.stat.exists
+- name: Restart machine
+  become: "True"
+  shell: sleep 2 && shutdown -r +1 "System is going down for reboot"
+  async: 1
+  poll: 0
+  ignore_errors: "True"
+  when: not dockerenv_file_var.stat.exists
 
-- name:                  Wait until SSH is available
-  become:                false
+- name: Wait until SSH is available
+  become: false
   local_action:
-    module:              wait_for
-    host:                "{{ inventory_hostname }}"
-    port:                22
-    delay:               60
-    timeout:             320
-    state:               started
-  when:                  not dockerenv_file_var.stat.exists
+    module: wait_for
+    host: "{{ inventory_hostname }}"
+    port: 22
+    delay: 60
+    timeout: 320
+    state: started
+  when: not dockerenv_file_var.stat.exists
 
 # Alternative for previous task "Wait until SSH is available"
-#- name:                  Wait for the server to finish rebooting
-#  become:                false
-#  local_action:          wait_for host="{{ inventory_hostname }}" search_regex=OpenSSH port=22 timeout=300
-#  when:                  not dockerenv_file_var.stat.exists
+# - name: Wait for the server to finish rebooting
+#   become: false
+#   local_action: >
+# wait_for host="{{ inventory_hostname }}"
+# search_regex=OpenSSH port=22 timeout=300
+#   when: not dockerenv_file_var.stat.exists

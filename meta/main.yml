@@ -1,32 +1,32 @@
+---
 # Standards: 1.0
 galaxy_info:
   author: Stefano Agazzi
   description: Stefano Agazzi
-  company:  StefanoAgazzi.github.io
+  company: StefanoAgazzi.github.io
 
   license:
-  - GPLv3
+    - GPLv3
 
   min_ansible_version: 2.3.1.0
 
   platforms:
-  - name: EL
-    versions:
-    - 7
+    - name: EL
+      versions: 7
 
   galaxy_tags:
-  - centos
-  - centos7
-  - el
-  - systemd
-  - base
-  - essential
-  - prepare
-  - openscaps
-  - updated
-  - linux4
-  - kernel4
-  - kernelml
-  - GPLv3
+    - centos
+    - centos7
+    - el
+    - systemd
+    - base
+    - essential
+    - prepare
+    - openscaps
+    - updated
+    - linux4
+    - kernel4
+    - kernelml
+    - GPLv3
 
 dependencies: []

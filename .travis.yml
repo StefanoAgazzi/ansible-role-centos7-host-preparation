@@ -4,18 +4,18 @@ language: python
 services:
   - docker
 
-before_install:
+before_install: >
   - sudo apt-get -qq update
-  - sudo apt-get install --option Dpkg::Options::="--force-confold" --force-yes --assume-yes docker-ce
+  - sudo apt-get install --option Dpkg::Options::="--force-confold"
+   --force-yes --assume-yes docker-ce
   - docker --version
 
 install:
   - pip install molecule ansible docker docker-py
 
 script:
-- ansible-lint tasks/main.yml
+  - ansible-lint tasks/main.yml
+  - molecule test
 
-# start test
-- molecule test
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
