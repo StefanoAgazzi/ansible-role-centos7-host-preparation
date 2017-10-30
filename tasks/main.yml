@@ -116,6 +116,11 @@
     name: htop
     state: present
 
+- name: Ensure rsync is present
+  package:
+    name: rsync
+    state: present
+
 - name: Ensure OpenSCAP utils is present
   package:
     name: openscap-utils
