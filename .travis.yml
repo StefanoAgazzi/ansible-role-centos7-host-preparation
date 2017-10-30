@@ -8,6 +8,7 @@ before_install: >-
   - sudo apt-get -qq update
   - sudo apt-get install --option Dpkg::Options::="--force-confold"
   --force-yes --assume-yes docker-ce
+
   - docker --version
 
 install:
