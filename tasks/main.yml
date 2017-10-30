@@ -64,7 +64,7 @@
     name:                selinux-policy
     state:               present
 
-- name:                  Ensure selinux-policy is present
+- name:                  Ensure selinux-policy-targeted is present
   package:
     name:                selinux-policy-targeted
     state:               present
