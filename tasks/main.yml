@@ -283,12 +283,12 @@
     group:               root
     mode:                0644
 
-#- name:                 Set authorized key for ordinary user copying it from current user
-#  authorized_key:
-#  #TODO:                replace hard coded username ste with a variable
-#    user:               ste
-#    state:              present
-#    key:                "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+- name:                 Set authorized key for ordinary user copying it from current user
+  authorized_key:
+  #TODO:                replace hard coded username ste with a variable
+    user:               ste
+    state:              present
+    key:                "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
 
 # configure ordinary user with ssh key login only
 
