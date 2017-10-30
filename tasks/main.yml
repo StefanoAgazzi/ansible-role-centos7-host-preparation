@@ -64,6 +64,11 @@
     name:                selinux-policy
     state:               present
 
+- name:                  Ensure selinux-policy is present
+  package:
+    name:                selinux-policy-targeted
+    state:               present
+
 - name:                  Ensure policycoreutils-python is present
   package:
     name:                policycoreutils-python
