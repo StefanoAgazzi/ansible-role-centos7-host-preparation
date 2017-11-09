@@ -1,13 +1,20 @@
-from copr import create_client2_from_params
+import sqlite3
 
-cl = create_client2_from_params(root_url="http://copr.fedorainfracloud.org/")
+conn = sqlite3.connect('primary.sqlite')
 
-projects = cl.projects.get_list(name="openscap-latest", limit=100)
+c = conn.cursor()
 
-for p in projects:
-    print(p)
-    builds = p.get_builds(limit=100)
-    for b in builds:
-        print(b)
-        print ("\n")
-        print(b.package_name + "        " + b.package_version)
+c.execute("""
+SELECT t.name, MAX(t.version), t."release"
+FROM packages t
+WHERE t.name = "scap-workbench"
+    OR t.name = "scap-security-guide"
+    OR t.name = "openscap-daemon"
+    OR t.name = "openscap"
+    OR t.name = "scap-workbench"
+GROUP BY t.name;
+""")
+
+print c.fetchall()
+
+conn.close()
