@@ -23,7 +23,7 @@ base_url = config.get('openscapmaint-openscap-latest', 'baseurl')
 
 arch_base_url = base_url.replace("$basearch", "x86_64")
 
-print arch_base_url
+print(arch_base_url)
 
 conn = sqlite3.connect('primary.sqlite')
 
@@ -41,6 +41,6 @@ GROUP BY t.name;
 """)
 
 for row in rows:
-    print row[0], row[1], row[2]
+    print (row[0] + " " + row[1] + " " + row[2])
 
 conn.close()
