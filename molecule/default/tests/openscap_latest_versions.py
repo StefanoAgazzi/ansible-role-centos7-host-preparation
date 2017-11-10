@@ -4,7 +4,7 @@ conn = sqlite3.connect('primary.sqlite')
 
 c = conn.cursor()
 
-c.execute("""
+rows = c.execute("""
 SELECT t.name, MAX(t.version), t."release"
 FROM packages t
 WHERE t.name = "scap-workbench"
@@ -15,6 +15,7 @@ WHERE t.name = "scap-workbench"
 GROUP BY t.name;
 """)
 
-print c.fetchall()
+for row in rows:
+    print row[0], row[1], row[2]
 
 conn.close()
