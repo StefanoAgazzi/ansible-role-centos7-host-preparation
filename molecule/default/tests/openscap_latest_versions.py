@@ -1,7 +1,7 @@
 import ConfigParser
+import bz2
 import requests
 import sqlite3
-import bz2
 
 import untangle
 
