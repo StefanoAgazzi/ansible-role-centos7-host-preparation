@@ -1,6 +1,9 @@
-import sqlite3
-import requests
 import ConfigParser
+import requests
+import sqlite3
+import bz2
+
+import untangle
 
 print('Beginning file download with requests')
 
@@ -8,7 +11,7 @@ url = 'https://copr.fedorainfracloud.org/coprs/openscapmaint/openscap-latest/rep
       'epel-7/openscapmaint-openscap-latest-epel-7.repo'
 r = requests.get(url)
 
-with open('primary.sqlite', 'wb') as f:
+with open('openscapmaint-openscap-latest-epel-7.repo', 'wb') as f:
     f.write(r.content)
 
 # Retrieve HTTP meta-data
@@ -17,13 +20,29 @@ print(r.headers['content-type'])
 print(r.encoding)
 
 config = ConfigParser.ConfigParser()
-config.read('primary.sqlite')
+config.read('openscapmaint-openscap-latest-epel-7.repo')
 
 base_url = config.get('openscapmaint-openscap-latest', 'baseurl')
 
 arch_base_url = base_url.replace("$basearch", "x86_64")
 
 print(arch_base_url)
+
+doc = untangle.parse(arch_base_url + "/repodata/repomd.xml")
+
+for element in doc.repomd.data:
+    if element['type'] == "primary_db":
+        url = arch_base_url + "/" + element.location['href']
+        r = requests.get(url)
+
+        with open('primary.sqlite.bz2', 'wb') as f:
+            f.write(r.content)
+
+        file_path = 'primary.sqlite.bz2'
+        zipfile = bz2.BZ2File(file_path)  # open the file
+        data = zipfile.read()  # get the decompressed data
+        new_file_path = file_path[:-4]  # assuming the filepath ends with .bz2
+        open(new_file_path, 'wb').write(data)  # write a uncompressed file
 
 conn = sqlite3.connect('primary.sqlite')
 
