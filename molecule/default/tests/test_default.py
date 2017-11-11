@@ -1,6 +1,7 @@
 import os
 
 import testinfra.utils.ansible_runner
+import openscap_latest_versions
 
 testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
     os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('all')
@@ -38,13 +39,18 @@ def test_packages_installation(Package):
     assert ntp.is_installed
     assert firewalld.is_installed
 
-    # TODO: check version dinamically using copr api
+    # check that installed packages come from the copr repo
+    # by checking they are the same version of the copr repos version
 
-    # check installed packages come from the copr repo
-    # by checking is the same version of the copr repos version
-    assert openscap.version.startswith("1.2.15")
-    assert openscap_daemon.version.startswith("0.1.7")
-    assert scap_security_guide.version.startswith("0.1.35")
+    packages = openscap_latest_versions\
+        .get_packages_info_from_primary_repo_db()
+
+    assert openscap.version.\
+        startswith(packages['openscap'].version)
+    assert openscap_daemon.version.\
+        startswith(packages['openscap-daemon'].version)
+    assert scap_security_guide.\
+        version.startswith(packages['scap-security-guide'].version)
 
 
 def test_services_are_running_and_enabled(Service):
@@ -56,6 +62,7 @@ def test_services_are_running_and_enabled(Service):
     assert ntpd.is_running
     assert ntpd.is_enabled
 
+# TODO: make it working only when not in a container
 # disable when running inside docker
 
 # def test_grub(File):
