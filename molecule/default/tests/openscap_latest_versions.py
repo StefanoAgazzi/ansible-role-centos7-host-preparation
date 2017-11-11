@@ -82,22 +82,18 @@ def get_packages_info_from_primary_repo_db():
         OR t.name = "scap-security-guide"
         OR t.name = "openscap-daemon"
         OR t.name = "openscap"
-        OR t.name = "scap-workbench"
     GROUP BY t.name;
     """)
 
     logger.debug("Packages Info:")
-    packages = []
+    packages = {}
     for row in rows:
         p = PackageInfo(row[0], row[1], row[2])
         logger.debug(p)
-        packages.append(p)
+        packages[p.name] = p
 
     logger.info('Closing db connection')
 
     conn.close()
 
     return packages
-
-
-get_packages_info_from_primary_repo_db()
