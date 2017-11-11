@@ -15,18 +15,18 @@ def test_hosts_file(host):
     assert f.group == 'root'
 
 
-def test_packages_installation(Package):
-    epel_release = Package('epel-release')
-    python = Package('python')
-    libselinux_python = Package('libselinux-python')
-    libsemanage_python = Package('libsemanage-python')
-    ntp = Package('ntp')
-    firewalld = Package('firewalld')
-    openscap = Package('openscap')
-    openscap_daemon = Package('openscap-daemon')
-    scap_security_guide = Package('scap-security-guide')
-    kernel_ml = Package('kernel-ml')
-    htop = Package('htop')
+def test_packages_installation(host):
+    epel_release = host.package('epel-release')
+    python = host.package('python')
+    libselinux_python = host.package('libselinux-python')
+    libsemanage_python = host.package('libsemanage-python')
+    ntp = host.package('ntp')
+    firewalld = host.package('firewalld')
+    openscap = host.package('openscap')
+    openscap_daemon = host.package('openscap-daemon')
+    scap_security_guide = host.package('scap-security-guide')
+    kernel_ml = host.package('kernel-ml')
+    htop = host.package('htop')
 
     # just check some examples packakges,
     # mostly installed from added repos
@@ -53,9 +53,9 @@ def test_packages_installation(Package):
         version.startswith(packages['scap-security-guide'].version)
 
 
-def test_services_are_running_and_enabled(Service):
-    firewalld = Service("firewalld")
-    ntpd = Service("ntpd")
+def test_services_are_running_and_enabled(host):
+    firewalld = host.service("firewalld")
+    ntpd = host.service("ntpd")
 
     assert firewalld.is_running
     assert firewalld.is_enabled
