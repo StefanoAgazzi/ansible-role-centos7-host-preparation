@@ -367,11 +367,3 @@
     timeout: 320
     state: started
   when: not dockerenv_file_var.stat.exists
-
-# Alternative for previous task "Wait until SSH is available"
-# - name: Wait for the server to finish rebooting
-#   become: false
-#   local_action: >
-# wait_for host="{{ inventory_hostname }}"
-# search_regex=OpenSSH port=22 timeout=300
-#   when: not dockerenv_file_var.stat.exists
