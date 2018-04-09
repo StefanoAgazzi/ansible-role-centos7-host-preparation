@@ -1,6 +1,17 @@
 ---
 sudo: required
+
+addons:
+  sonarcloud:
+    organization: "stefanorocks"
+    token:
+      secure: "UCAuOivREltP72Tagzrz5PK8ZSUaBvjWZTjTRlaTL4mIt4qYCNR0SFvdP06cuk5urd2u+uMbLncv0dQRsBefjKmv8Z+eeKu907mG0BbiW+rAY2Qzo7vGX+y8L8PzQ7MkQ69x6UvEodEW9JbdH6z7fS3I0xgaFiI6sUE3Syb2cR4fR7CHsiFedjHxurvQkyND2l3J0eZa3JlDX8XuPRuCZMFkeDkurkSfwAYZs9912nkgDRLQiik+9a0y3P0HgoZTsHGol8gNwUDdfY3ORxOhfYkYKN6eilLN53EvClVa7jTHNDOJH3yiWhUiUyJ3uo+uiki7ZFlBOrn2QCbl8nTf7AHaeR2GqOHgEiCCpbW05n5EsvcQBrB2cOaX5hQnDvbcN9lFBbFKGisIrG6iu5o87235LuiGfiRggfiMiuLkclGUTUv2vv7HHfZPFFjZGWizRUT9zD3gkBbCo4ZVjg6AYJ2eUUh16E1RuDHaT00hTC4U2ebbPpigsPoBQkw/n9n5CMPIq+QTMtVKwS7uVUyaJvevKBXuuzZL059rS9whTErEYOKJq0jHfsA3Hp4V8ptYHRfGc79Te73/yzu5jhHR+DiDC4mTMqro5wb6NzfXFzm2Il7SfnG7YG1aRCcUpDMSH+ExZy1pXfnJJ+cmRUnjrPUeGBVCSyoGOyK4CC6XBtk="
+
+jdk:
+  - oraclejdk8
+
 language: python
+
 services:
   - docker
 
@@ -15,6 +26,11 @@ install:
 script:
   - ansible-lint tasks/main.yml
   - molecule test
+  - sonar-scanner
+
+cache:
+  directories:
+    - '$HOME/.sonar/cache'
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
