@@ -28,7 +28,7 @@ def test_packages_installation(host):
     kernel_ml = host.package('kernel-ml')
     htop = host.package('htop')
 
-    # just check some examples packakges,
+    # just check some examples packages,
     # mostly installed from added repos
     assert epel_release.is_installed
     assert python.is_installed
