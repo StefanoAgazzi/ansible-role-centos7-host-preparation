@@ -211,7 +211,7 @@
     dest: /etc/localtime
     state: link
 
-- name: Ensure FirewallD is running and enabled
+- name: Ensure FirewallD is started and enabled
   systemd:
     name: firewalld
     state: started
@@ -233,31 +233,31 @@
     immediate: "True"
     zone: public
 
-- name: Ensure the sshd service is running and enabled
+- name: Ensure the sshd service is started and enabled
   service:
     name: sshd
     state: started
     enabled: "True"
 
-- name: Ensure the NTP service is running and enabled
+- name: Ensure the NTP service is started and enabled
   service:
     name: ntpd
     state: started
     enabled: "True"
 
-- name: Ensure cron(ie) is running and enabled
+- name: Ensure cron(ie) is started and enabled
   service:
     name: crond
     state: started
     enabled: "True"
 
-- name: Ensure cockpit service is restarted and enabled
+- name: Ensure cockpit service is started and enabled
   service:
     name: cockpit
     state: started
     enabled: "True"
 
-- name: Ensure cockpit socket is enabled and restarted
+- name: Ensure cockpit socket is started and enabled
   service:
     name: cockpit.socket
     state: started
@@ -277,7 +277,7 @@
     dest: /etc/yum/yum-cron-hourly.conf
   tags: yum-cron
 
-- name: Ensure yum-cron service is running and enabled
+- name: Ensure yum-cron service is started and enabled
   service:
     name: yum-cron
     state: started
