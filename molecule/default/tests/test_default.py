@@ -1,7 +1,7 @@
 import os
-from os import path
-
+import semantic_version
 import testinfra.utils.ansible_runner
+from os import path
 
 import openscap_latest_versions
 
@@ -44,15 +44,15 @@ def test_packages_installation(host):
     # check that installed packages come from the copr repo
     # by checking they are the same version of the copr repos version
 
-    packages = openscap_latest_versions \
+    copr = openscap_latest_versions \
         .get_packages_info_from_primary_repo_db()
 
-    assert openscap.version. \
-        startswith(packages['openscap'].version)
-    assert openscap_daemon.version. \
-        startswith(packages['openscap-daemon'].version)
-    assert scap_security_guide. \
-        version.startswith(packages['scap-security-guide'].version)
+    assert semantic_version.Version(openscap.version) >= \
+        semantic_version.Version(copr['openscap'].version)
+    assert semantic_version.Version(openscap_daemon.version) >= \
+        semantic_version.Version(copr['openscap-daemon'].version)
+    assert semantic_version.Version(scap_security_guide.version) >= \
+        semantic_version.Version(copr['scap-security-guide'].version)
 
 
 def test_services_are_running_and_enabled(host):
@@ -84,4 +84,5 @@ def running_inside_docker_container():
 
 def test_grub():
     if not running_inside_docker_container():
-        assert open('/etc/default/grub', 'r').read().find('GRUB_DEFAULT=0') != -1
+        assert open('/etc/default/grub', 'r').read() \
+                   .find('GRUB_DEFAULT=0') != -1
