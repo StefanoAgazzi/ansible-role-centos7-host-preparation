@@ -1,6 +1,8 @@
 import os
+from os import path
 
 import testinfra.utils.ansible_runner
+
 import openscap_latest_versions
 
 testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
@@ -42,14 +44,14 @@ def test_packages_installation(host):
     # check that installed packages come from the copr repo
     # by checking they are the same version of the copr repos version
 
-    packages = openscap_latest_versions\
+    packages = openscap_latest_versions \
         .get_packages_info_from_primary_repo_db()
 
-    assert openscap.version.\
+    assert openscap.version. \
         startswith(packages['openscap'].version)
-    assert openscap_daemon.version.\
+    assert openscap_daemon.version. \
         startswith(packages['openscap-daemon'].version)
-    assert scap_security_guide.\
+    assert scap_security_guide. \
         version.startswith(packages['scap-security-guide'].version)
 
 
@@ -62,10 +64,24 @@ def test_services_are_running_and_enabled(host):
     assert ntpd.is_running
     assert ntpd.is_enabled
 
-# TODO: make it working only when not in a container
-# disable when running inside docker
 
-# def test_grub(File):
-#     grub = File("/etc/default/grub")
-#
-#     assert grub.contains("GRUB_DEFAULT=saved")
+def check_docker_cgroup():
+    with open('/proc/self/cgroup', 'r') as procfile:
+        for line in procfile:
+            fields = line.strip().split('/')
+            if 'docker' in fields:
+                return True
+    return False
+
+
+def check_docker_env_file():
+    return path.exists('/.dockerenv')
+
+
+def running_inside_docker_container():
+    return check_docker_cgroup() and check_docker_env_file()
+
+
+def test_grub():
+    if not running_inside_docker_container():
+        assert open('/etc/default/grub', 'r').read().find('GRUB_DEFAULT=0') != -1
