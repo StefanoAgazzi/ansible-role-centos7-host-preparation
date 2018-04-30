@@ -292,33 +292,32 @@
     group: root
     mode: 0644
 
-# - name:  Set authorized key for ordinary user copying it from current user
-#   authorized_key:
-#   #TODO: replace hard coded username ste with a variable
-#     user: ste
-#     state:  present
-#     key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
-
-# configure ordinary user with ssh key login only
-
 - name: Ensure ordinary user is present
   user:
     name: ste
     shell: /bin/bash
 
-- name: Ensure the ordinary user is sudoer with no password required
+- name: Ensure the ordinary user is sudoer with password required
   lineinfile:
     dest: /etc/sudoers
     state: present
     regexp: '^ste ALL\='
-    line: 'ste ALL=(ALL) NOPASSWD:ALL'
+    line: 'ste ALL=(ALL) PASSWD:ALL'
     validate: 'visudo -cf %s'
+
+# configure ordinary user with ssh key login only
+
+# set authorized key for ordinary user
+- name: Set authorized key took from url
+  authorized_key:
+    user: ste
+    state: present
+    key: https://github.com/StefanoAgazzi.keys
 
 - name: Ensure the hostname is the same of the inventory
   hostname:
     name: "{{ inventory_hostname }}"
   when: not dockerenv_file_var.stat.exists
-
 
 # boot the latest kernel
 - name: Remove Grub default entry
