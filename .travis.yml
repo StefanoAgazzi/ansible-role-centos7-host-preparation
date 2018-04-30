@@ -31,7 +31,7 @@ before_install:
   - docker --version
 
 install:
-  - pip install molecule untangle ansible docker docker-py semantic_version
+  - pip install molecule untangle ansible docker-py semantic_version
 
 script:
   - ansible-lint tasks/main.yml
