@@ -335,10 +335,6 @@
     state: started
     enabled: "True"
 
-
-
-
-
 # configure automatic security updates
 
 - name: Configure yum-cron.conf
