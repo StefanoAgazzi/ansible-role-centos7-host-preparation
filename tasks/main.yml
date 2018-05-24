@@ -3,7 +3,7 @@
 
 # update system
 
-- name: Ensure we have the last version of every package
+- name: Ensure we have the latest version of every package
   tags:
   - skip_ansible_lint
   package:
@@ -42,7 +42,7 @@
 
 # eventually update system with the new repositories configured
 
-- name: Ensure we have the last version of every package
+- name: Ensure we have the latest version of every package
   tags:
     - skip_ansible_lint
   package:
