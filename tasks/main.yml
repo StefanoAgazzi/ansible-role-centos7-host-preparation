@@ -202,6 +202,11 @@
     name: cockpit-system
     state: present
 
+- name: Ensure Performance Co Pilot is present
+  package:
+    name: pcp
+    state: present
+
 - name: Ensure cockpit-pcp is present
   package:
     name: cockpit-pcp
@@ -210,6 +215,11 @@
 - name: Ensure cockpit-ws is present
   package:
     name: cockpit-ws
+    state: present
+
+- name: Ensure redhat-lsb-core is present
+  package:
+    name: redhat-lsb-core
     state: present
 
 - name: Ensure yum-cron is present
@@ -306,6 +316,28 @@
     name: cockpit.socket
     state: started
     enabled: "True"
+
+- name: Ensure pmcd is started and enabled
+  service:
+    name: pmcd
+    state: started
+    enabled: "True"
+
+- name: Ensure pmie is started and enabled
+  service:
+    name: pmie
+    state: started
+    enabled: "True"
+
+- name: Ensure pmlogger is started and enabled
+  service:
+    name: pmlogger
+    state: started
+    enabled: "True"
+
+
+
+
 
 # configure automatic security updates
 
