@@ -162,6 +162,46 @@
     name: cockpit-storaged
     state: present
 
+- name: Ensure cockpit-bridge is present
+  package:
+    name: cockpit-bridge
+    state: present
+
+- name: Ensure cockpit-doc is present
+  package:
+    name: cockpit-doc
+    state: present
+
+- name: Ensure cockpit-docker is present
+  package:
+    name: cockpit-docker
+    state: present
+
+- name: Ensure cockpit-kubernetes is present
+  package:
+    name: cockpit-kubernetes
+    state: present
+
+- name: Ensure cockpit-machines is present
+  package:
+    name: cockpit-machines
+    state: present
+
+- name: Ensure cockpit-packagekit is present
+  package:
+    name: cockpit-packagekit
+    state: present
+
+- name: Ensure cockpit-selinux is present
+  package:
+    name: cockpit-selinux
+    state: present
+
+- name: Ensure cockpit-system is present
+  package:
+    name: cockpit-system
+    state: present
+
 - name: Ensure cockpit-ws is present
   package:
     name: cockpit-ws
@@ -190,6 +230,11 @@
 - name: Ensure openssl-libs is present
   package:
     name: openssl-libs
+    state: present
+
+- name: Ensure setroubleshoot-server is present
+  package:
+    name: setroubleshoot-server
     state: present
 
 # check basic system configurations
