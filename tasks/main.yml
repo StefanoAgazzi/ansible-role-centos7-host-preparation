@@ -177,11 +177,6 @@
     name: cockpit-docker
     state: present
 
-- name: Ensure cockpit-kubernetes is present
-  package:
-    name: cockpit-kubernetes
-    state: present
-
 - name: Ensure cockpit-machines is present
   package:
     name: cockpit-machines
