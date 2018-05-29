@@ -40,6 +40,19 @@
     skip_if_unavailable: "yes"
     enabled: "yes"
 
+- name: Ensure copr repo for cockpit-preview is enabled
+  yum_repository:
+    name: copr-cockpit-preview
+    description: Copr repo for cockpit-preview owned by @cockpit
+    baseurl: >-
+     https://copr-be.cloud.fedoraproject.org/results/@cockpit/cockpit-preview/epel-7-$basearch/
+    gpgkey: >-
+     https://copr-be.cloud.fedoraproject.org/results/@cockpit/cockpit-preview/pubkey.gpg
+    gpgcheck: "yes"
+    repo_gpgcheck: "no"
+    skip_if_unavailable: "yes"
+    enabled: "yes"
+
 # eventually update system with the new repositories configured
 
 - name: Ensure we have the latest version of every package
@@ -94,6 +107,21 @@
 - name: Ensure tmux is present
   package:
     name: tmux
+    state: present
+
+- name: Ensure vim is present
+  package:
+    name: vim
+    state: present
+
+- name: Ensure wget is present
+  package:
+    name: wget
+    state: present
+
+- name: Ensure net-tools is present
+  package:
+    name: net-tools
     state: present
 
 - name: Ensure ddclient is present
