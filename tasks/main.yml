@@ -96,6 +96,16 @@
     name: tmux
     state: present
 
+- name: Ensure ddclient is present
+  package:
+    name: ddclient
+    state: present
+
+- name: Ensure perl-JSON-Any is present
+  package:
+    name: perl-JSON-Any
+    state: present
+
 - name: Ensure mlocate is present
   package:
     name: mlocate
