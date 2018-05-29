@@ -144,6 +144,16 @@
     name: vim-common
     state: present
 
+- name: Ensure wget is present
+  package:
+    name: wget
+    state: present
+
+- name: Ensure net-tools is present
+  package:
+    name: net-tools
+    state: present
+
 - name: Ensure yum-utils is present
   package:
     name: yum-utils
