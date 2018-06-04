@@ -255,6 +255,11 @@
     name: redhat-lsb-core
     state: present
 
+- name: Ensure setroubleshoot-server is present
+  package:
+    name: setroubleshoot-server
+    state: present
+
 - name: Ensure yum-cron is present
   package:
     name: yum-cron
