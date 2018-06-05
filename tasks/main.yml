@@ -11,12 +11,12 @@
     state: latest
 
 # configure packages repositories
-
 - name: Ensure EPEL is present
   package:
     name: epel-release
     state: present
 
+# TODO: move kernel update task to another role
 - name: Ensure ELRepo GPG key is present
   rpm_key:
     state: present
