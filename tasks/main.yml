@@ -16,17 +16,6 @@
     name: epel-release
     state: present
 
-# TODO: move kernel update task to another role
-- name: Ensure ELRepo GPG key is present
-  rpm_key:
-    state: present
-    key: https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
-
-- name: Ensure ELRepo is enabled
-  package:
-    name: "http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm"
-    state: present
-
 - name: Ensure copr repo for OpenSCAP is enabled
   yum_repository:
     name: copr-openscap
@@ -188,12 +177,6 @@
   package:
     name: openscap-daemon
     state: present
-
-- name: Ensure kernel-ml (kernel 4.x) is present
-  package:
-    name: kernel-ml
-    state: present
-    enablerepo: elrepo-kernel
 
 - name: Ensure cron(ie) is present
   package:
@@ -443,29 +426,6 @@
 - name: Ensure the hostname is the same of the inventory
   hostname:
     name: "{{ inventory_hostname }}"
-  when: not dockerenv_file_var.stat.exists
-
-# boot the latest kernel
-- name: Remove Grub default entry
-  lineinfile:
-    path: /etc/default/grub
-    regexp: "GRUB_DEFAULT="
-    state: absent
-  when: not dockerenv_file_var.stat.exists
-
-- name: Configure GRUB default entry to boots the latest kernel
-  lineinfile:
-    path: /etc/default/grub
-    line: "GRUB_DEFAULT=0"
-    state: present
-  when: not dockerenv_file_var.stat.exists
-
-- name: Ensure GRUB default entry boots the latest kernel
-  command: grub2-mkconfig -o /boot/grub2/grub.cfg
-  when: not dockerenv_file_var.stat.exists
-
-- name: Ensure /boot/grub2/grubenv saved entry boots the latest kernel
-  command: grub2-set-default 0
   when: not dockerenv_file_var.stat.exists
 
 - name: Restart machine
