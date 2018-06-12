@@ -27,7 +27,6 @@ def test_packages_installation(host):
     openscap = host.package('openscap')
     openscap_daemon = host.package('openscap-daemon')
     scap_security_guide = host.package('scap-security-guide')
-    kernel_ml = host.package('kernel-ml')
     htop = host.package('htop')
 
     # just check some examples packages,
@@ -37,7 +36,6 @@ def test_packages_installation(host):
     assert libselinux_python.is_installed
     assert libsemanage_python.is_installed
     assert htop.is_installed
-    assert kernel_ml.is_installed
     assert ntp.is_installed
     assert firewalld.is_installed
 
