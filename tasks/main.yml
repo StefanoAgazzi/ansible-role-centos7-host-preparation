@@ -395,7 +395,7 @@
   user:
     name: ste
     shell: /bin/bash
-    groups: ste,wheel
+    groups: wheel
 
 # configure ordinary user with ssh key login only
 
