@@ -203,16 +203,6 @@
     name: cockpit-bridge
     state: present
 
-- name: Ensure cockpit-docker is present
-  package:
-    name: cockpit-docker
-    state: present
-
-- name: Ensure cockpit-machines is present
-  package:
-    name: cockpit-machines
-    state: present
-
 - name: Ensure cockpit-packagekit is present
   package:
     name: cockpit-packagekit
@@ -405,14 +395,7 @@
   user:
     name: ste
     shell: /bin/bash
-
-- name: Ensure the ordinary user is sudoer with password required
-  lineinfile:
-    dest: /etc/sudoers
-    state: present
-    regexp: '^ste ALL\='
-    line: 'ste ALL=(ALL) PASSWD:ALL'
-    validate: 'visudo -cf %s'
+    groups: ste,wheel
 
 # configure ordinary user with ssh key login only
 
