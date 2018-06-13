@@ -427,22 +427,3 @@
   hostname:
     name: "{{ inventory_hostname }}"
   when: not dockerenv_file_var.stat.exists
-
-- name: Restart machine
-  become: "True"
-  shell: sleep 2 && shutdown -r +1 "System is going down for reboot"
-  async: 1
-  poll: 0
-  ignore_errors: "True"
-  when: not dockerenv_file_var.stat.exists
-
-- name: Wait until SSH is available
-  become: false
-  local_action:
-    module: wait_for
-    host: "{{ inventory_hostname }}"
-    port: 22
-    delay: 60
-    timeout: 320
-    state: started
-  when: not dockerenv_file_var.stat.exists
