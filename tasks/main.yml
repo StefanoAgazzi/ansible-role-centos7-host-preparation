@@ -203,34 +203,9 @@
     name: cockpit-bridge
     state: present
 
-- name: Ensure cockpit-packagekit is present
-  package:
-    name: cockpit-packagekit
-    state: present
-
 - name: Ensure cockpit-selinux is present
   package:
     name: cockpit-selinux
-    state: present
-
-- name: Ensure cockpit-system is present
-  package:
-    name: cockpit-system
-    state: present
-
-- name: Ensure Performance Co Pilot is present
-  package:
-    name: pcp
-    state: present
-
-- name: Ensure cockpit-pcp is present
-  package:
-    name: cockpit-pcp
-    state: present
-
-- name: Ensure cockpit-ws is present
-  package:
-    name: cockpit-ws
     state: present
 
 - name: Ensure redhat-lsb-core is present
