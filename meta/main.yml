@@ -28,6 +28,6 @@ galaxy_info:
     - linux4
     - kernel4
     - kernelml
-    - GPLv3
+    - gplv3
 
 dependencies: []
