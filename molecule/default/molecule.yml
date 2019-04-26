@@ -9,7 +9,7 @@ lint:
   name: yamllint
 
 platforms:
-  - name: ansible-role-base-centos7
+  - name: ansible-role-centos7-host-preparation
     image: centos/systemd
     groups:
       - group1

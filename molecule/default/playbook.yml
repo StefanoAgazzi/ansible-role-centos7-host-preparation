@@ -3,4 +3,4 @@
 - name: Converge
   hosts: all
   roles:
-    - role: ansible-role-base-centos7
+    - role: ansible-role-centos7-host-preparation
