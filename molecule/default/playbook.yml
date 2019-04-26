@@ -1,4 +1,3 @@
-# Standards: 2.0
 ---
 - name: Converge
   hosts: all
