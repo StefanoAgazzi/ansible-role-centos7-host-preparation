@@ -18,7 +18,7 @@ addons:
         RUnjrPUeGBVCSyoGOyK4CC6XBtk="
 
 jdk:
-  - oraclejdk8
+  - openjdk8
 
 language: python
 
