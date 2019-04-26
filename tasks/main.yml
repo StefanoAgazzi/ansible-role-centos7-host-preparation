@@ -163,6 +163,11 @@
     name: rsync
     state: present
 
+- name: Ensure Performance Co-Pilot is present
+  package:
+    name: pcp
+    state: present
+
 - name: Ensure OpenSCAP utils is present
   package:
     name: openscap-utils
@@ -313,7 +318,7 @@
     state: started
     enabled: "True"
 
-- name: Ensure pmcd is started and enabled
+- name: Ensure Performance Co-Pilot daemon is started and enabled
   service:
     name: pmcd
     state: started
