@@ -1,5 +1,5 @@
 ---
-distro: xenial
+dist: xenial
 
 sudo: required
 
