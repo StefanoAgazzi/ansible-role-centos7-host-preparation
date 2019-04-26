@@ -38,7 +38,7 @@ def download_primary_repo_db():
         logger.info('Saving repo file locally')
         f.write(r.content)
 
-    config = ConfigParser.ConfigParser()
+    config = ConfigParser()
     config.read('openscapmaint-openscap-latest-epel-7.repo')
     base_url = config.get('openscapmaint-openscap-latest', 'baseurl')
     logger.debug('base_url read from repo file:' + base_url)
