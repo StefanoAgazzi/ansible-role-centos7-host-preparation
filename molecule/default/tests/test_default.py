@@ -3,7 +3,7 @@ import semantic_version
 import testinfra.utils.ansible_runner
 from os import path
 
-import openscap_latest_versions
+from molecule.default.tests import openscap_latest_versions
 
 testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
     os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('all')

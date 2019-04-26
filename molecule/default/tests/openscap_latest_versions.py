@@ -2,10 +2,10 @@
 # TODO: use logging file handler, use json format
 # TODO: add exception handler
 
-import ConfigParser
 import bz2
 import logging
 import sqlite3
+from configparser import ConfigParser
 
 import requests
 import untangle

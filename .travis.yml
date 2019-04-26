@@ -1,4 +1,6 @@
 ---
+distro: xenial
+
 sudo: required
 
 addons:
@@ -21,6 +23,8 @@ jdk:
   - openjdk8
 
 language: python
+python:
+  - "3.7"
 
 services:
   - docker
@@ -31,7 +35,8 @@ before_install:
   - docker --version
 
 install:
-  - pip install molecule untangle ansible docker-py semantic_version
+  - pip install molecule ansible docker-py
+  - pip install -r requirements.txt
 
 script:
   - ansible-lint tasks/main.yml
