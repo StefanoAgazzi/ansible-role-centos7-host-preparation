@@ -8,19 +8,16 @@ addons:
     organization: "stefanoagazzi-github"
     token:
       secure: >
-        "UCAuOivREltP72Tagzrz5PK8ZSUaBvjWZTjTRlaTL4mIt4qYCNR0SFvdP06cuk5urd2u+uMb
-        Lncv0dQRsBefjKmv8Z+eeKu907mG0BbiW+rAY2Qzo7vGX+y8L8PzQ7MkQ69x6UvEodEW9JbdH
-        6z7fS3I0xgaFiI6sUE3Syb2cR4fR7CHsiFedjHxurvQkyND2l3J0eZa3JlDX8XuPRuCZMFkeD
-        kurkSfwAYZs9912nkgDRLQiik+9a0y3P0HgoZTsHGol8gNwUDdfY3ORxOhfYkYKN6eilLN53E
-        vClVa7jTHNDOJH3yiWhUiUyJ3uo+uiki7ZFlBOrn2QCbl8nTf7AHaeR2GqOHgEiCCpbW05n5E
-        svcQBrB2cOaX5hQnDvbcN9lFBbFKGisIrG6iu5o87235LuiGfiRggfiMiuLkclGUTUv2vv7HH
-        fZPFFjZGWizRUT9zD3gkBbCo4ZVjg6AYJ2eUUh16E1RuDHaT00hTC4U2ebbPpigsPoBQkw/n9
-        n5CMPIq+QTMtVKwS7uVUyaJvevKBXuuzZL059rS9whTErEYOKJq0jHfsA3Hp4V8ptYHRfGc79
-        Te73/yzu5jhHR+DiDC4mTMqro5wb6NzfXFzm2Il7SfnG7YG1aRCcUpDMSH+ExZy1pXfnJJ+cm
-        RUnjrPUeGBVCSyoGOyK4CC6XBtk="
-
-jdk:
-  - openjdk8
+        "XS+h/Iak3EewqnVR00nkxZd715eh1ghZ0gewhLYSPoWUp8DJ7xzM1cmHplCyG/Wxxj8Wzy9w
+        XQKF/wSLTb5H1NIsVoVWlMoP84V/+yc5wmhtfbAbUPQ9EmsDuuhC2pEj4V0yC34JYFNv2GsnD
+        5DtIol2wP+C+eeYhTvNATxVCXXwBO/oIJocq/aXY8ZvYxQoP0mg7k+rKJJCFy5qJG6Qg9ia4Y
+        bh3tGrWL8lbwk5STrcYYN58hZLrWhcXEe2Jh+XiYFp0Bdwg9FPY3Qx2RDc3FVl6l5Qm+vktLG
+        ZJnmH+MJXG2xaKdrCA7XBmkK/f2gterkpZ6a2x6b6Q+0vtJhYIwiGVeXvDGc98a94kvwq06cc
+        47vdMywH9gjc11dRqW+O/QQBEtPM4f4GYljMcW5bRMes3AdRCYO8DY8HWPC6PfA/O9Qt4zVZ2
+        b/4xs+wDt4FCRh0dvPXDe2ACZHR1oIQ7CJL4JMY3r4ep8Zf7Xj5QjgMXXEnCrNCqyjMbcGdxE
+        2psui3nyD4BhW0Rlip5bUoy/GOpeW2UuZiPp46IMPG/ipphzrY0Li2dN0PSJtzCBb6yN1whBk
+        rI5bi5AdUVpV6lwBbVQjcSY8Flm6eB070+SnkFDp9KtBL0fS/vKxPz5FxBfbQOo3/dQtqx5Lo
+        v1C6/Un9wjZpZ9Rq5N5PyXSjDng="
 
 language: python
 python:
