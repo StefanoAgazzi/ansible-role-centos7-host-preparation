@@ -5,7 +5,7 @@ sudo: required
 
 addons:
   sonarcloud:
-    organization: "stefanorocks"
+    organization: "stefanoagazzi-github"
     token:
       secure: >
         "UCAuOivREltP72Tagzrz5PK8ZSUaBvjWZTjTRlaTL4mIt4qYCNR0SFvdP06cuk5urd2u+uMb
