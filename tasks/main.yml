@@ -1,4 +1,4 @@
-# tasks file for base-centos7
+# tasks file for centos7-host-preparation
 ---
 
 # update system

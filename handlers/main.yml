@@ -1,5 +1,5 @@
 ---
-# handlers file for base-centos7
+# handlers file for centos7-host-preparation
 
 # - name:      restart yum-cron
 #   service:

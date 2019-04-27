@@ -1,8 +1,9 @@
 ---
 # Standards: 1.0
 galaxy_info:
+  role_name: centos7-host-preparation
   author: Stefano Agazzi
-  description: Stefano Agazzi
+  description: Setup centos7 host
   company: StefanoAgazzi.github.io
 
   license:
