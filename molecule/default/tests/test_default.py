@@ -1,7 +1,8 @@
 import os
+from os import path
+
 import semantic_version
 import testinfra.utils.ansible_runner
-from os import path
 
 from molecule.default.tests import openscap_latest_versions
 
@@ -24,9 +25,6 @@ def test_packages_installation(host):
     libsemanage_python = host.package('libsemanage-python')
     ntp = host.package('ntp')
     firewalld = host.package('firewalld')
-    openscap = host.package('openscap')
-    openscap_daemon = host.package('openscap-daemon')
-    scap_security_guide = host.package('scap-security-guide')
     htop = host.package('htop')
 
     # just check some examples packages,
@@ -39,18 +37,24 @@ def test_packages_installation(host):
     assert ntp.is_installed
     assert firewalld.is_installed
 
-    # check that installed packages come from the copr repo
-    # by checking they are the same version of the copr repos version
 
-    copr = openscap_latest_versions \
+def test_openscap_packages_installations(host):
+    installed_packages = {host.package('openscap').name:
+                          host.package('openscap'),
+                          host.package('openscap-daemon').name:
+                          host.package('openscap-daemon'),
+                          host.package('scap-security-guide').name:
+                          host.package('scap-security-guide')}
+
+    # check that installed packages come from the copr repo
+    # by checking they are the same version (or later)
+    copr_packages = openscap_latest_versions \
         .get_packages_info_from_primary_repo_db()
 
-    assert semantic_version.Version(openscap.version) >= \
-        semantic_version.Version(copr['openscap'].version)
-    assert semantic_version.Version(openscap_daemon.version) >= \
-        semantic_version.Version(copr['openscap-daemon'].version)
-    assert semantic_version.Version(scap_security_guide.version) >= \
-        semantic_version.Version(copr['scap-security-guide'].version)
+    for package in installed_packages.keys():
+        assert semantic_version.Version(
+            installed_packages[package].version) >= \
+               semantic_version.Version(copr_packages[package].version)
 
 
 def test_services_are_running_and_enabled(host):
