@@ -1,21 +1,16 @@
-import os
 from os import path
 
 import semantic_version
-import testinfra.utils.ansible_runner
 
 from molecule.default.tests import openscap_latest_versions
 
-testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
-    os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('all')
-
 
 def test_hosts_file(host):
-    f = host.file('/etc/hosts')
+    host = host.file('/etc/hosts')
 
-    assert f.exists
-    assert f.user == 'root'
-    assert f.group == 'root'
+    assert host.exists
+    assert host.user == 'root'
+    assert host.group == 'root'
 
 
 def test_packages_installation(host):
