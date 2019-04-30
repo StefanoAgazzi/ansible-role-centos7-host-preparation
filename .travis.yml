@@ -1,6 +1,9 @@
 ---
 dist: xenial
 
+git:
+  depth: false
+
 sudo: required
 
 addons:
