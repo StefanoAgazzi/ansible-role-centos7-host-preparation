@@ -16,17 +16,6 @@ logging.basicConfig(level=logging.DEBUG)
 LOGGER: Logger = logging.getLogger(__name__)
 
 
-class PackageInfo:
-    def __init__(self, name, version, release):
-        self.name = name
-        self.version = version
-        self.release = release
-
-    def __str__(self):
-        return "name: " + self.name + ", version: " + \
-               self.version + ", release:" + self.release
-
-
 def build_package_info(name, version, release):
     package = namedtuple('package', 'name version release')
     return package(name, version, release)
