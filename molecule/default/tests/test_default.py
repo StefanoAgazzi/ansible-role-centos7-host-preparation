@@ -1,8 +1,7 @@
 from os import path
 
-import semantic_version
-
 from molecule.default.tests import openscap_latest_versions
+from packaging.version import Version
 
 
 def test_hosts_file(host):
@@ -47,9 +46,8 @@ def test_openscap_packages_installations(host):
         .get_packages_info_from_primary_repo_db()
 
     for package in installed_packages.keys():
-        assert semantic_version.Version(
-            installed_packages[package].version) >= \
-               semantic_version.Version(copr_packages[package].version)
+        assert Version(installed_packages[package].version) >= \
+               Version(copr_packages[package].version)
 
 
 def test_services_are_running_and_enabled(host):
