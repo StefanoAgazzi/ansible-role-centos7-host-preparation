@@ -35,7 +35,6 @@ before_install:
   - docker --version
 
 install:
-  - pip install molecule ansible docker-py
   - pip install -r requirements.txt
 
 script:

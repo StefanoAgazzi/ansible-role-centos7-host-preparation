@@ -1,7 +1,12 @@
+import logging
 from os import path
 
-from molecule.default.tests import openscap_latest_versions
 from packaging.version import Version
+
+from molecule.default.tests import openscap_latest_versions
+
+logging.basicConfig(level=logging.DEBUG)
+LOGGER: logging.Logger = logging.getLogger(__name__)
 
 
 def test_hosts_file(host):
@@ -13,6 +18,8 @@ def test_hosts_file(host):
 
 
 def test_packages_installation(host):
+    LOGGER.info("check required packages are installed")
+
     epel_release = host.package('epel-release')
     python = host.package('python')
     libselinux_python = host.package('libselinux-python')
@@ -33,12 +40,16 @@ def test_packages_installation(host):
 
 
 def test_openscap_packages_installations(host):
-    installed_packages = {host.package('openscap').name:
-                          host.package('openscap'),
-                          host.package('openscap-daemon').name:
-                          host.package('openscap-daemon'),
-                          host.package('scap-security-guide').name:
-                          host.package('scap-security-guide')}
+    LOGGER.info("check services are running and enabled at boot")
+
+    installed_packages = {
+        host.package('openscap').name:
+        host.package('openscap'),
+        host.package('openscap-daemon').name:
+        host.package('openscap-daemon'),
+        host.package('scap-security-guide').name:
+        host.package('scap-security-guide')
+    }
 
     # check that installed packages come from the copr repo
     # by checking they are the same version (or later)
@@ -51,6 +62,8 @@ def test_openscap_packages_installations(host):
 
 
 def test_services_are_running_and_enabled(host):
+    LOGGER.info("check services are running and enabled")
+
     firewalld = host.service("firewalld")
     ntpd = host.service("ntpd")
 
@@ -65,19 +78,33 @@ def check_docker_cgroup():
         for line in procfile:
             fields = line.strip().split('/')
             if 'docker' in fields:
+                LOGGER.debug("check_docker_cgroup: True")
                 return True
+
+    LOGGER.debug("check_docker_cgroup: False")
     return False
 
 
-def check_docker_env_file():
-    return path.exists('/.dockerenv')
+def check_docker_env_file_exists():
+    docker_env_file_exists = path.exists('/.dockerenv')
+    LOGGER.debug("check_docker_env_file_exists: %s", docker_env_file_exists)
+    return docker_env_file_exists
 
 
 def running_inside_docker_container():
-    return check_docker_cgroup() and check_docker_env_file()
+    LOGGER.info("check if running inside docker")
+
+    return check_docker_cgroup() or check_docker_env_file_exists()
 
 
 def test_grub():
+    LOGGER.info("check grub default boot the first item in menu")
+
     if not running_inside_docker_container():
-        assert open('/etc/default/grub', 'r').read() \
-                   .find('GRUB_DEFAULT=0') != -1
+        try:
+            grub_config_file_content = open('/etc/default/grub', 'r').read()
+            assert grub_config_file_content.find(
+                'GRUB_DEFAULT=0') != -1 or grub_config_file_content.find(
+                    'GRUB_DEFAULT="0"') != -1
+        except FileNotFoundError:
+            assert False
