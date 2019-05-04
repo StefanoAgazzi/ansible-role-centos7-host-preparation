@@ -1,3 +1,6 @@
 untangle
 requests
 packaging
+molecule
+ansible
+docker

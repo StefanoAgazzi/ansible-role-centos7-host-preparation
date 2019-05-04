@@ -3,11 +3,13 @@
 # TODO: add exception handler
 
 import bz2
+
 import logging
+from logging import Logger
+
 import sqlite3
 from collections import namedtuple
 from configparser import ConfigParser
-from logging import Logger
 
 import requests
 import untangle
@@ -28,11 +30,11 @@ def download_primary_repo_db():
     LOGGER.info("Beginning repo file download")
     LOGGER.info("url: %s", url)
 
-    r = requests.get(url)
+    resp = requests.get(url)
 
-    with open('openscapmaint-openscap-latest-epel-7.repo', 'wb') as f:
+    with open('openscapmaint-openscap-latest-epel-7.repo', 'wb') as file:
         LOGGER.info('Saving repo file locally')
-        f.write(r.content)
+        file.write(resp.content)
 
     config = ConfigParser()
     config.read('openscapmaint-openscap-latest-epel-7.repo')
@@ -48,16 +50,17 @@ def download_primary_repo_db():
     for element in doc.repomd.data:
         if element['type'] == "primary_db":
             url = arch_base_url + "/" + element.location['href']
-            r = requests.get(url)
+            resp = requests.get(url)
             LOGGER.info('Saving primary db compressed file locally')
-            with open('primary.sqlite.bz2', 'wb') as f:
-                f.write(r.content)
+            with open('primary.sqlite.bz2', 'wb') as file:
+                file.write(resp.content)
 
             file_path = 'primary.sqlite.bz2'
             zipfile = bz2.BZ2File(file_path)  # open the file
             LOGGER.info('Decompressing primary db')
             data = zipfile.read()  # get the decompressed data
-            new_file_path = file_path[:-4]  # assuming the file_path ends with .bz2
+            new_file_path = file_path[:
+                                      -4]  # assuming the file_path ends with .bz2
             LOGGER.info('Saving primary db decompressed file locally')
             open(new_file_path, 'wb').write(data)  # write a uncompressed file
 
@@ -68,10 +71,10 @@ def get_packages_info_from_primary_repo_db():
     LOGGER.info('Opening db connection')
     conn = sqlite3.connect('primary.sqlite')
 
-    c = conn.cursor()
+    cursor = conn.cursor()
 
     LOGGER.info('Querying db')
-    rows = c.execute("""
+    rows = cursor.execute("""
     SELECT t.name, MAX(t.version), t."release"
     FROM packages t
     WHERE t.name = "scap-workbench"

@@ -1,0 +1,3 @@
+[style]
+# use chromium style if IDE can live with it
+based_on_style = pep8
