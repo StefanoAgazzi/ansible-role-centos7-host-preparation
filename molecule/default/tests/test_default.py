@@ -3,7 +3,7 @@ from os import path
 
 from packaging.version import Version
 
-from molecule.default.tests import openscap_latest_versions
+from molecule.default.tests import openscap_copr_info_fetcher
 
 logging.basicConfig(level=logging.DEBUG)
 LOGGER: logging.Logger = logging.getLogger(__name__)
@@ -53,8 +53,7 @@ def test_openscap_packages_installations(host):
 
     # check that installed packages come from the copr repo
     # by checking they are the same version (or later)
-    copr_packages = openscap_latest_versions \
-        .get_packages_info_from_primary_repo_db()
+    copr_packages = openscap_copr_info_fetcher.get_packages_info()
 
     for package in installed_packages.keys():
         assert Version(installed_packages[package].version) >= \
