@@ -10,7 +10,7 @@
     name: '*'
     state: latest
 
-# configure packages repositories
+# configure software repositories
 - name: Ensure EPEL is present
   package:
     name: epel-release
@@ -19,7 +19,7 @@
 - name: Ensure copr repo for OpenSCAP is enabled
   yum_repository:
     name: copr-openscap
-    description: OpenSCAP copr lastest
+    description: OpenSCAP lastest copr
     baseurl: >-
      https://copr-be.cloud.fedoraproject.org/results/openscapmaint/openscap-latest/epel-7-$basearch/
     gpgkey: >-
@@ -51,206 +51,10 @@
     name: '*'
     state: latest
 
-# install essentials packages
-
-- name: Ensure Python is present
+# install base packages
+- name: Install base packages (defined in vars/main.yml)
   package:
-    name: python
-    state: present
-
-- name: Ensure libselinux-python is present
-  package:
-    name: libselinux-python
-    state: present
-
-- name: Ensure selinux-policy is present
-  package:
-    name: selinux-policy
-    state: present
-
-- name: Ensure selinux-policy-targeted is present
-  package:
-    name: selinux-policy-targeted
-    state: present
-
-- name: Ensure policycoreutils-python is present
-  package:
-    name: policycoreutils-python
-    state: present
-
-- name: Ensure libsemanage-python is present
-  package:
-    name: libsemanage-python
-    state: present
-
-- name: Ensure NTP is present
-  package:
-    name: ntp
-    state: present
-
-- name: Ensure FirewallD is present
-  package:
-    name: firewalld
-    state: present
-
-- name: Ensure tmux is present
-  package:
-    name: tmux
-    state: present
-
-- name: Ensure vim is present
-  package:
-    name: vim
-    state: present
-
-- name: Ensure wget is present
-  package:
-    name: wget
-    state: present
-
-- name: Ensure net-tools is present
-  package:
-    name: net-tools
-    state: present
-
-- name: Ensure ddclient is present
-  package:
-    name: ddclient
-    state: present
-
-- name: Ensure perl-JSON-Any is present
-  package:
-    name: perl-JSON-Any
-    state: present
-
-- name: Ensure mlocate is present
-  package:
-    name: mlocate
-    state: present
-
-- name: Ensure vim-common is present
-  package:
-    name: vim-common
-    state: present
-
-- name: Ensure wget is present
-  package:
-    name: wget
-    state: present
-
-- name: Ensure net-tools is present
-  package:
-    name: net-tools
-    state: present
-
-- name: Ensure yum-utils is present
-  package:
-    name: yum-utils
-    state: present
-
-- name: Ensure deltarpm is present
-  package:
-    name: deltarpm
-    state: present
-
-- name: Ensure htop is present
-  package:
-    name: htop
-    state: present
-
-- name: Ensure rsync is present
-  package:
-    name: rsync
-    state: present
-
-- name: Ensure Performance Co-Pilot is present
-  package:
-    name: pcp
-    state: present
-
-- name: Ensure OpenSCAP utils is present
-  package:
-    name: openscap-utils
-    state: present
-
-- name: Ensure SCAP security guide is present
-  package:
-    name: scap-security-guide
-    state: present
-
-- name: Ensure OpenSCAP daemon is present
-  package:
-    name: openscap-daemon
-    state: present
-
-- name: Ensure cron(ie) is present
-  package:
-    name: cronie
-    state: present
-
-- name: Ensure Cockpit is present
-  package:
-    name: cockpit
-    state: present
-
-- name: Ensure cockpit-dashboard is present
-  package:
-    name: cockpit-dashboard
-    state: present
-
-- name: Ensure cockpit-storaged is present
-  package:
-    name: cockpit-storaged
-    state: present
-
-- name: Ensure cockpit-bridge is present
-  package:
-    name: cockpit-bridge
-    state: present
-
-- name: Ensure cockpit-selinux is present
-  package:
-    name: cockpit-selinux
-    state: present
-
-- name: Ensure redhat-lsb-core is present
-  package:
-    name: redhat-lsb-core
-    state: present
-
-- name: Ensure setroubleshoot-server is present
-  package:
-    name: setroubleshoot-server
-    state: present
-
-- name: Ensure yum-cron is present
-  package:
-    name: yum-cron
-    state: present
-
-- name: Ensure openssh is present
-  package:
-    name: openssh
-    state: present
-
-- name: Ensure openssh-server is present
-  package:
-    name: openssh-server
-    state: present
-
-- name: Ensure openssh-clients is present
-  package:
-    name: openssh-clients
-    state: present
-
-- name: Ensure openssl-libs is present
-  package:
-    name: openssl-libs
-    state: present
-
-- name: Ensure setroubleshoot-server is present
-  package:
-    name: setroubleshoot-server
+    name: "{{ base_packages }}"
     state: present
 
 # check basic system configurations
