@@ -1,2 +1,48 @@
 ---
 # vars file for centos7-host-preparation
+
+base_packages:
+  - cockpit
+  - cockpit-bridge
+  - cockpit-dashboard
+  - cockpit-docker
+  - cockpit-machines
+  - cockpit-packagekit
+  - cockpit-pcp
+  # - cockpit-selinux
+  - cockpit-storaged
+  - cockpit-system
+  - cockpit-ws
+  - cronie
+  - ddclient
+  - deltarpm
+  - firewalld
+  - htop
+  - libselinux-python
+  - libsemanage-python
+  - mlocate
+  - net-tools
+  - net-tools
+  - ntp
+  - openscap-daemon
+  - openscap-utils
+  - openssh
+  - openssh-clients
+  - openssh-server
+  - openssl-libs
+  - pcp
+  - perl-JSON-Any
+  - policycoreutils-python
+  - python
+  - redhat-lsb-core
+  - rsync
+  - scap-security-guide
+  - selinux-policy
+  - selinux-policy-targeted
+  - setroubleshoot-server
+  - tmux
+  - vim
+  - vim-common
+  - wget
+  - yum-cron
+  - yum-utils
