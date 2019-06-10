@@ -181,16 +181,16 @@
 
 - name: Ensure ordinary user is present
   user:
-    name: ste
+    name: "{{ user_name }}"
     shell: /bin/bash
     groups: wheel
 
-# configure ordinary user with ssh key login only
+# configure non admin user with ssh key login only
 
 # set authorized key for ordinary user
 - name: Set authorized key took from url
   authorized_key:
-    user: ste
+    user: "{{ user_name }}"
     state: present
     key: https://github.com/StefanoAgazzi.keys
 
