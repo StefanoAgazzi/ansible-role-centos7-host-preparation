@@ -1,6 +1,6 @@
 ---
 # vars file for centos7-host-preparation
-
+user_name: ste
 base_packages:
   - cockpit
   - cockpit-bridge

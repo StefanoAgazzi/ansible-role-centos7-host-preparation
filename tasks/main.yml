@@ -1,8 +1,12 @@
 # tasks file for centos7-host-preparation
 ---
 
-# update system
+- name: "Check required variables"
+  fail: msg="Variable '{{ item }}' is not defined"
+  when: item not in vars
+  with_items: "{{ required_vars }}"
 
+# update system
 - name: Ensure we have the latest version of every package
   tags:
   - skip_ansible_lint
@@ -177,16 +181,16 @@
 
 - name: Ensure ordinary user is present
   user:
-    name: ste
+    name: "{{ user_name }}"
     shell: /bin/bash
     groups: wheel
 
-# configure ordinary user with ssh key login only
+# configure non admin user with ssh key login only
 
 # set authorized key for ordinary user
 - name: Set authorized key took from url
   authorized_key:
-    user: ste
+    user: "{{ user_name }}"
     state: present
     key: https://github.com/StefanoAgazzi.keys
 

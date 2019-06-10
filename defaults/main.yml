@@ -1,4 +1,8 @@
 ---
+# required variables
+required_vars:
+  - user_name
+
 # defaults file for yum_cron
 # Defaults to Ansible inventory hostname.
 # If prefer to use system hostname, set to None.
